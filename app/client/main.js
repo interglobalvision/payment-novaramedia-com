@@ -1,9 +1,3 @@
-/* ---------------------------------------------------- +/
-
-## Main ##
-
-Global client-side code. Loads last. 
-
-/+ ---------------------------------------------------- */
-
-//
+Meteor.startup(function() {
+  Stripe.setPublishableKey(Meteor.settings.public.stripe.publishable);
+});
