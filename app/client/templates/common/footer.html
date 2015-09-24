@@ -1,12 +1,19 @@
 <template name="footer">
   <footer id="footer" class="container">
     <hr/>
+
     <div class="row">
-      <div class="col col4">
-        This is the footer. {{myHelper "Globie!"}}
-      </div>
-      <div class="col col4">
-        <img style="height: 100px;" src="/images/globie.png" alt="GLOBIE GANG"/>
+      <div class="col col24">
+        <ul>
+          <li><b>utility menu</b></li>
+          <li><a href="{{pathFor 'oneoff'}}">One off</a></li>
+          <li><a href="{{pathFor 'subscription'}}">Subscription</a></li>
+          <li><a href="/">Home/Root</a></li>
+          <li><a href="{{pathFor 'profile'}}">Profile</a></li>
+          <li><a href="{{pathFor 'admin'}}">Admin</a></li>
+          <li><a href="{{pathFor 'forgot'}}">Forgot</a></li>
+          <li><a href="{{pathFor 'login'}}">Log In</a></li>
+        </ul>
       </div>
     </div>
   </footer>

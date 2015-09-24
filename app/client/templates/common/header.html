@@ -1,14 +1,12 @@
 <template name="header">
   <header id="header" class="container">
     <div class="row">
-      <div class="col col4">
-        <h1>interglobal.vision</h1>
+      <div class="col col18">
+        <h1>Novara Media Payment Webapp</h1>
       </div>
-      <div class="col col4">
+      <div class="col col6">
         <ul>
           <li><a href="{{pathFor 'homepage'}}"><span class="genericon genericon-home"></span></a></li>
-          <li><a href="{{pathFor 'content'}}">{{_ "menu-contentpage"}}</a></li>
-          <li><a href="{{pathFor 'items'}}">{{_ "menu-items"}}</a></li>
           <li><a href="/404">404 Link</a></li>
           {{#if isLoggedIn}}
             <li><a href="/" class="log-out">Log Out</a></li>
@@ -19,13 +17,6 @@
         </ul>
       </div>
     </div>
-<!--
-    <div class="messages">
-      {{#each messages}}
-        <p class="message message-{{type}}">{{message}}</p>
-      {{/each}}
-    </div>
--->
     <hr/>
   </header>
 </template>

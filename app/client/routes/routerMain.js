@@ -14,30 +14,26 @@ Router.configure({
   notFoundTemplate: 'notFound',
 });
 
-// Filters
+// On before
 
-var filters = {
-
-  myFilter: function () {
-    this.next();
+Router.onBeforeAction(function () {
+    if (!Meteor.userId()) {
+      this.render('login');
+    } else {
+      this.next();
+    }
   },
 
-  isLoggedIn: function() {
-    if (!(Meteor.loggingIn() || Meteor.user())) {
-      alert('Please Log In First.')
-      this.stop();
-    }
+  {
+    except: ['login','homepage','oneoff','subscription','root',],
   }
-
-}
-
-Router.onBeforeAction(filters.myFilter, {only: ['items']});
+);
 
 // Routes
 
 Router.map(function() {
 
-  // Items
+/*
 
   this.route('items', {
     waitOn: function () {
@@ -61,22 +57,23 @@ Router.map(function() {
       }
     }
   });
+*/
 
+  this.route('/', {
+    name: 'root',
+    onBeforeAction: function () {
 
-  // Pages
+      if (!Meteor.userId()) {
+        this.redirect('oneoff');
+      } else {
+        this.redirect('profile');
+      }
 
-  this.route('homepage', {
-    path: '/'
+    },
   });
 
-  this.route('content');
+  this.route('oneoff');
 
-  // Users
-
-  this.route('login');
-
-  this.route('signup');
-
-  this.route('forgot');
+  this.route('subscription');
 
 });

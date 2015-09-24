@@ -1,77 +1,202 @@
-// STRUCUTRE
+@import "resets"
+@import "novara"
 
-  // GRID BUILDER
+#header
+  background-image: url(/build/img/working/marble-1400.jpg)
 
-$cols = 8
-$col = 80px
-$gutter = 16px
-.container
-  margin: 0 auto
-  width: ($col * $cols)+($gutter * $cols)
-.row
-  clear: both
-.col
+#logo-nm
+  height: 55px
+  width: 55px
+
+.js-live, ul.u-inline-list li.js-live
+  display: none
+
+// Liveplayer
+
+#live
+  padding-top: $margin-basic
+  padding-bottom: $margin-basic
+
+.jp-controls-holder, .jp-volume-controls
   float: left
-  margin-left: ($gutter/2)
-  margin-right: ($gutter/2)
-for col in 1..$cols
-  .col{col}
-    width: ( col * $col ) + ( ( col - 1 ) * $gutter )
 
-    // FLUID RESPONSIVE CONTAINER STYLE IF NO GRID
+.jp-controls-holder
+  margin-right: $margin-tiny
 
-// .container
-//   max-width: 700px
-//   width: 90%
-//   margin: 0 auto
+.jp-button
+  display: block
+  height: 5em
+  width: 5em
+  text-align: center
+  border: 2px solid white
 
-$margin-tiny = ($gutter/2)
-$margin-small = ($gutter)
-$margin-basic = ($gutter*2)
-$margin-large = ($gutter*5)
+.jp-stop
+  display: none
 
-// COLORS
+.jp-volume-bar
+  position: relative
+  width: 5em
+  height: 5em
+  border: 2px solid white
 
-$color-black-soft = rgb(14,14,14)
-$color-white-soft = rgb(253,253,253)
-
-html
-  background-color: $color-white-soft
-  color: $color-black-soft
-
-// TYPOGRAPHY
-
-$font-size-basic = 19px
-$font-leading-basic = 1.4em
-
-$font-size-h1 = 40px
-$font-size-h2 = 30px
-$font-size-h3 = 24px
-
-html
-  font-family: sans-serif
-  font-size: $font-size-basic
-  line-height: $font-leading-basic
-
-  // HEADINGS
-
-h1
-  font-size: $font-size-h1
-
-h2
-  font-size: $font-size-h2
-
-h3
-  font-size: $font-size-h3
-
-h1,h2,h3,h4,h5,h6
-  line-height: $font-leading-basic
-
-  // LINKS
-
-a,a:active,a:visited
-  color:inherit
-  text-decoration: none
-  transition:opacity .2s
+.jp-button, .jp-volume-bar
   &:hover
-    opacity:.5
+    cursor: pointer
+
+.jp-volume-bar-value
+  background-color: white
+  position:relative
+  height: 5em
+
+// Twitter widgets
+
+//.twitter-timeline
+//  width: 100% !important
+
+.twitter-wrapper
+  max-width: 520px
+  margin: 0 auto
+
+// Latest Posts
+
+#latest
+  margin-top: $margin-basic
+
+.latest-post
+  margin-top: $margin-small
+  margin-bottom: $margin-small
+  h3
+    margin-top: $margin-tiny
+
+.latest-post-wrapper
+  max-width: 355px
+  margin: 0 auto
+
+@media screen and (max-width: ($col * $cols)+($gutter * $cols))
+
+  $gutter = 16px
+  $margin-tiny = ($gutter/2)
+  $margin-small = $gutter
+  $margin-basic = ($gutter*3)
+  $margin-large = ($gutter*5)
+
+  // Liveplayer
+
+  #live
+    padding-top: $margin-basic
+    padding-bottom: $margin-basic
+
+  .jp-controls-holder
+    margin-right: $margin-tiny
+
+  // Latest Posts
+
+  #latest
+    margin-top: $margin-basic
+
+  .latest-post
+    margin-top: $margin-small
+    margin-bottom: $margin-small
+    h3
+      margin-top: $margin-tiny
+
+@media screen and (max-width: 1152px)
+
+  $gutter = 12px
+  $margin-tiny = ($gutter/2)
+  $margin-small = $gutter
+  $margin-basic = ($gutter*3)
+  $margin-large = ($gutter*5)
+
+  // Liveplayer
+
+  #live
+    padding-top: $margin-basic
+    padding-bottom: $margin-basic
+
+  .jp-controls-holder
+    margin-right: $margin-tiny
+
+  // Latest Posts
+
+  #latest
+    margin-top: $margin-basic
+
+  .latest-post
+    margin-top: $margin-small
+    margin-bottom: $margin-small
+    h3
+      margin-top: $margin-tiny
+
+@media screen and (max-width: 912px)
+
+  $gutter = 8px
+  $margin-tiny = ($gutter/2)
+  $margin-small = $gutter
+  $margin-basic = ($gutter*3)
+  $margin-large = ($gutter*5)
+
+  // Liveplayer
+
+  #live
+    padding-top: $margin-basic
+    padding-bottom: $margin-basic
+
+  // Latest Posts
+
+  #latest
+    margin-top: $margin-basic
+
+  .latest-post
+    margin-top: $margin-small
+    margin-bottom: $margin-small
+    h3
+      margin-top: $margin-tiny
+
+@media screen and (max-width: 696px)
+
+  $gutter = 8px
+  $margin-tiny = ($gutter/2)
+  $margin-small = $gutter
+  $margin-basic = ($gutter*3)
+  $margin-large = ($gutter*5)
+
+  .col.mobile-split-half
+    width: 50%
+    float: left
+
+  // Liveplayer
+
+  #live
+    padding-top: $margin-basic
+    padding-bottom: $margin-basic
+
+  .jp-controls-holder
+    margin-right: $margin-tiny
+
+  .jp-button
+    height: 4em
+    width: 4em
+
+  .jp-volume-bar
+    width: 4em
+    height: 4em
+
+  .jp-volume-bar-value
+    height: 4em
+
+  // Twitter
+
+  #twitter-novara-timeline
+    display: none
+
+  // Latest Posts
+
+  #latest
+    margin-top: $margin-basic
+
+  .latest-post
+    margin-top: $margin-small
+    margin-bottom: $margin-small
+    h3
+      margin-top: $margin-tiny
