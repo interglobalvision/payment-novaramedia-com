@@ -28,6 +28,19 @@ Router.onBeforeAction(function () {
 
 Router.map(function() {
 
-  this.route('admin');
+  this.route('admin', {
+    waitOn: function () {
+      return [
+        Meteor.subscribe('donations'),
+        Meteor.subscribe('subscriptions'),
+      ];
+    },
+    data: function () {
+      return {
+        donations: Donations.find(),
+        subscriptions: Subscriptions.find(),
+      }
+    },
+  });
 
 });

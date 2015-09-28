@@ -2,18 +2,36 @@
 
 ## Publications ##
 
-All publications-related code. 
+All publications-related code.
 
 /+ ---------------------------------------------------- */
 
-// Publish all items
+Meteor.publish('donations', function() {
 
-Meteor.publish('allItems', function() {
-  return Items.find();
+  if (Roles.userIsInRole(this.userId, ['admin'])) {
+
+    return Donations.find();
+
+  } else {
+
+    this.stop();
+    return;
+
+  };
+
 });
 
-// Publish a single item
+Meteor.publish('subscriptions', function() {
 
-Meteor.publish('singleItem', function(id) {
-  return Items.find(id);
+  if (Roles.userIsInRole(this.userId, ['admin'])) {
+
+    return Subscriptions.find();
+
+  } else {
+
+    this.stop();
+    return;
+
+  };
+
 });

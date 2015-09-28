@@ -12,12 +12,12 @@ Meteor.methods({
       amount: (amount * 100),
       currency: 'gbp',
       source: token.id,
-      description: 'Donation to Novara Media'
+      description: 'Donation to Novara Media',
     });
 
     if (result.status === 'succeeded') {
 
-      return Donations.insert({amount: amount, stripeResult: result});
+      return Donations.insert({createdAt: new Date(), amount: amount, stripeResult: result,});
 
     } else {
 
