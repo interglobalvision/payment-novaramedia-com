@@ -20,7 +20,14 @@ Handlebars.registerHelper('donationsTotal', function() {
 
 Handlebars.registerHelper('subscriptionsTotal', function() {
 
-  return '';
+  var subscriptionsTotal = 0;
+  var subscriptions = Subscriptions.find();
+
+  subscriptions.forEach(function(subscriptions) {
+    subscriptionsTotal += subscriptions.amount;
+  });
+
+  return subscriptionsTotal;
 });
 
 Handlebars.registerHelper('timeSince', function(date) {

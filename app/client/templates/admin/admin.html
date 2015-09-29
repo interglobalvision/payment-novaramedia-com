@@ -10,8 +10,7 @@
         <h4>Listed</h4>
         {{#each donations}}
           <div>
-            {{timeSince createdAt}}<br/>
-            £{{amount}}
+            £{{amount}} <em>{{timeSince createdAt}}</em>
           </div>
         {{/each}}
 
@@ -25,8 +24,7 @@
         <h4>Listed</h4>
         {{#each subscriptions}}
           <div>
-            {{_id}}<br/>
-            £{{amount}}
+            £{{amount}} <em>{{timeSince createdAt}}</em>
           </div>
         {{/each}}
 
