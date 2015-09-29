@@ -1,6 +1,52 @@
 <template name="subscription">
   <div class="container">
     <h2>Create a subscription.</h2>
-    <p>Will also create a user account for this website that allows the deletion of this subscription</p>
+
+    <p>This will also create an account with your email address that allows you to log in and cancel your subscription</p>
+
+    <form id="subscription">
+      <span class="payment-errors"></span>
+
+      <div class="form-group">
+        <label>
+          <span>Donation £ / month</span>
+          <input type="text" name="donation-amount" id="donation-amount"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>Email</span>
+          <input type="email" id="email"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>Card Number</span>
+          <input type="text" size="20" data-stripe="number"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>CVC</span>
+          <input type="text" size="4" data-stripe="cvc"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>Expiration (MM/YYYY)</span>
+          <input type="text" size="2" data-stripe="exp-month"/>
+        </label>
+        <span> / </span>
+        <input type="text" size="4" data-stripe="exp-year"/>
+      </div>
+
+      <button type="submit">Donate</button>
+
+    </form>
+
   </div>
 </template>
