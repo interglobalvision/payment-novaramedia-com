@@ -6,6 +6,10 @@ Template.oneoff.onCreated(function () {
 Template.oneoff.onRendered(function () {
   var _this = this;
 
+  if (_this.data.amount) {
+    _this.$('#donation-amount').val(parseInt(_this.data.amount));
+  }
+
 });
 
 Template.oneoff.events({

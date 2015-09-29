@@ -6,6 +6,10 @@ Template.subscription.onCreated(function () {
 Template.subscription.onRendered(function () {
   var _this = this;
 
+  if (_this.data.amount) {
+    _this.$('#donation-amount').val(parseInt(_this.data.amount));
+  }
+
 });
 
 Template.subscription.events({

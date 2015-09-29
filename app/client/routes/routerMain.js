@@ -46,8 +46,16 @@ Router.map(function() {
     },
   });
 
-  this.route('oneoff');
+  this.route('oneoff', {
+    data: function () {
+      return this.params.query;
+    },
+  });
 
-  this.route('subscription');
+  this.route('subscription', {
+    data: function () {
+      return this.params.query;
+    },
+  });
 
 });
