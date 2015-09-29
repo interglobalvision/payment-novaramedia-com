@@ -35,3 +35,9 @@ Meteor.publish('subscriptions', function() {
   };
 
 });
+
+Meteor.publish('userSubscriptions', function() {
+
+  return Subscriptions.find({user: this.userId});
+
+});

@@ -12,9 +12,11 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 - Add query variable loading of payment routes ✔
 
-- User account route. Allows users to login and add/edit/delete existing subscriptions. Allows total user removal if user requests.
+- User account route. Allows users to login and add/edit/delete existing subscriptions. Allows total user removal if user requests ✔
 
 - Admin route. Allows the admin user to see recent donations/subs and overall totals ✔
+
+- Thanks route after successful donations
 
 - Full Novara styling
 

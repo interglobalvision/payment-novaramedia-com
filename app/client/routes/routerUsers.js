@@ -4,6 +4,16 @@ Router.map(function() {
 
   this.route('forgot');
 
-  this.route('profile');
-
+  this.route('profile', {
+    waitOn: function () {
+      return [
+        Meteor.subscribe('userSubscriptions'),
+      ];
+    },
+    data: function () {
+      return {
+        subscription: Subscriptions.findOne(),
+      }
+    },
+  });
 });
