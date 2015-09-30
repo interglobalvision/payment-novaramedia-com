@@ -1,16 +1,13 @@
 Template.header.helpers({
-/*
-  messages: function () {
-    return Messages.find();
+  notLoggedIn: function () {
+    return !Meteor.user();
   },
-*/
-  isLoggedIn: function () {
-    return !!Meteor.user();
-  }
-})
+
+});
 
 Template.header.events({
   'click .log-out': function () {
     Meteor.logout();
-  }
-})
+  },
+
+});

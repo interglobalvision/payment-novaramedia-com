@@ -18,13 +18,13 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 - Thanks route after successful donations ✔
 
-- Fix user routes
+- Fix user routes ✔
 
 - Card/payment error handling
 
 - Fix try/catch failures
 
-- Full Novara styling
+- Full Novara styling ✔
 
 ####v1.1
 

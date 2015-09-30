@@ -1,18 +1,17 @@
 <template name="footer">
   <footer id="footer" class="container">
-    <hr/>
-
     <div class="row">
       <div class="col col24">
-        <ul>
-          <li><b>utility menu</b></li>
+        <ul class="u-inline-list">
           <li><a href="{{pathFor 'oneoff'}}">One off</a></li>
           <li><a href="{{pathFor 'subscription'}}">Subscription</a></li>
-          <li><a href="/">Home/Root</a></li>
+          <li><a href="{{pathFor 'faq'}}">FAQ/Help</a></li>
+          {{#if isLoggedIn}}
           <li><a href="{{pathFor 'profile'}}">Profile</a></li>
-          <li><a href="{{pathFor 'admin'}}">Admin</a></li>
-          <li><a href="{{pathFor 'forgot'}}">Forgot</a></li>
+          {{else}}
           <li><a href="{{pathFor 'login'}}">Log In</a></li>
+          <li><a href="{{pathFor 'forgot'}}">Forgot Password</a></li>
+          {{/if}}
         </ul>
       </div>
     </div>

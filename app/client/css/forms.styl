@@ -1,0 +1,38 @@
+@import "novara"
+
+label, input
+  display: block
+
+form
+  width: 100%
+  max-width: 650px
+  margin: $margin-small auto !important
+
+input
+  padding: $margin-tiny
+  box-sizing: border-box
+  width: 100%
+  &.inline
+    width: 33%
+    display: inline-block
+
+.form-group
+  span
+    font-size: 1.2em
+    font-weight: bold
+    display: block
+    margin-top: $margin-tiny
+    margin-bottom: $margin-tiny
+
+button[type=submit], .button
+  margin-top: $margin-tiny
+  background-color: $red
+  color: white
+  border: solid 2px white
+  font-size: 1.5em
+  padding: $margin-tiny
+  box-sizing: border-box
+  width: 33%
+
+.optional-address
+  display: none

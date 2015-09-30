@@ -1,44 +1,90 @@
 <template name="oneoff">
   <div class="container">
-    <h2>Make a one off donation.</h2>
-    <p>Doesn't save any user information but saves a record of the donation</p>
-
-    <form id="oneoff">
-      <span class="payment-errors"></span>
-
-      <div class="form-group">
-        <label>
-          <span>Donation £</span>
-          <input type="text" name="donation-amount" id="donation-amount"/>
-        </label>
+    <div class="row">
+      <div class="col col24 padded-text">
+        <h2>Make a one off donation.</h2>
+        <p>Doesn't save any user information but saves a record of the donation</p>
       </div>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label>
-          <span>Card Number</span>
-          <input type="text" size="20" data-stripe="number"/>
-        </label>
+  <div class="font-white background-red">
+    <div class="container">
+      <div class="row">
+        <div class="col col24">
+          <form id="oneoff">
+            <span class="payment-errors"></span>
+
+            <div class="form-group">
+              <label>
+                <span>Donation £</span>
+                <input class="inline" required type="text" name="donation-amount" id="donation-amount"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span>Card Number</span>
+                <input required maxlength="20" type="text" size="20" data-stripe="number"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span>CVC</span>
+                <input class="inline" required type="text" size="4" data-stripe="cvc"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span>Expiration (MM/YYYY)</span>
+                <input class="inline" required maxlength="2" type="text" size="2" data-stripe="exp-month"/>
+                <input class="inline" required maxlength="4" type="text" size="4" data-stripe="exp-year"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <span>Name on card (optional)</span>
+                <input type="text" data-stripe="name"/>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <a href class="trigger-optional-address"><span>+ Add Address (optional)</span></a>
+              <div class="optional-address">
+                <label>
+                  <span>Address Line 1</span>
+                  <input type="text" data-stripe="address_line1"/>
+                </label>
+                <label>
+                  <span>Address Line 2</span>
+                  <input type="text" data-stripe="address_line2"/>
+                </label>
+                <label>
+                  <span>City/Town</span>
+                  <input type="text" data-stripe="address_city"/>
+                </label>
+                <label>
+                  <span>County/State</span>
+                  <input type="text" data-stripe="address_state"/>
+                </label>
+                <label>
+                  <span>Postcode/Zip</span>
+                  <input type="text" data-stripe="address_zip"/>
+                </label>
+              </div>
+            </div>
+
+            <div class="u-align-center">
+              <button type="submit">Donate</button>
+            </div>
+
+          </form>
+
+        </div>
       </div>
-
-      <div class="form-group">
-        <label>
-          <span>CVC</span>
-          <input type="text" size="4" data-stripe="cvc"/>
-        </label>
-      </div>
-
-      <div class="form-group">
-        <label>
-          <span>Expiration (MM/YYYY)</span>
-          <input type="text" size="2" data-stripe="exp-month"/>
-        </label>
-        <span> / </span>
-        <input type="text" size="4" data-stripe="exp-year"/>
-      </div>
-
-      <button type="submit">Donate</button>
-
-    </form>
-
+    </div>
   </div>
 </template>

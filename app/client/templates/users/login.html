@@ -1,18 +1,27 @@
 <template name="login">
   <div class="container">
-    <form>
-      <div class="control-group">
-        <label>Username</label>
-        <div class="controls"><input id="username" type="text" value="" /></div>
+    <div class="row">
+      <div class="col col24">
+        <form>
+          <h2>Login</h2>
+          <div class="form-group">
+            <label>
+              <span>Username</span>
+              <input required id="username" type="text" value="" />
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <span>Password</span>
+              <input required id="password" type="password" value="" />
+            </label>
+          </div>
+          <div class="form-actions">
+            <input type="submit" class="button" value="Log In" /><br/>
+            <em><a href="/forgot">Forgot password?</a></em>
+          </div>
+        </form>
       </div>
-      <div class="control-group">
-        <label>Password</label>
-        <div class="controls"><input id="password" type="password" value="" /></div>
-      </div>
-      <div class="form-actions">
-        <a href="/forgot">Forgot password?</a>
-        <input type="submit" class="button" value="Log In" />
-      </div>
-    </form>
+    </div>
   </div>
 </template>

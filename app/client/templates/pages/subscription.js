@@ -32,7 +32,7 @@ Template.subscription.events({
 
           if (err) {
             console.log(err);
-            alert(err.message);
+            Alerta.error(err.message);
           } else {
 //             console.log(response);
             Router.go('/thanks');
@@ -43,25 +43,20 @@ Template.subscription.events({
 
         });
 
-      } else if (status === 400) {
+      } else if (status === 400 || status === 402) {
 
-        // Bad Request	Often missing a required parameter.
-        console.log(response);
-
-        $form.find('button').prop('disabled', false);
-
-
-      } else if (status === 402) {
-
-        // Request Failed	Parameters were valid but request failed.
-        console.log(response);
+        Alerta.error(response.error.message);
 
         $form.find('button').prop('disabled', false);
+
+      } else {
+
+        Alerta.error('Problem with payment processor Stripe. Please try again later');
 
       }
 
     });
 
-  }
+  },
 
 });

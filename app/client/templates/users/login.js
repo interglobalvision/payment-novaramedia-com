@@ -1,15 +1,16 @@
 Template.login.events = {
-  'click input[type=submit]': function(event){
-    event.preventDefault();
+  'click input[type=submit]': function(e) {
+    e.preventDefault();
+
     var username = $('#username').val();
     var password = $('#password').val();
-    Meteor.loginWithPassword(username, password, function(error){
-      if(error){
-//         flash(error.reason, 'error');
-      }else{
+
+    Meteor.loginWithPassword(username, password, function(error) {
+      if (error) {
+        Alerta.error(error.reason);
+      } else {
         Router.go('/');
-//         flash('You are now logged in.');
       }
     });
-  }
+  },
 };

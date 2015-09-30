@@ -10,10 +10,11 @@ Router.map(function() {
         Meteor.subscribe('userSubscriptions'),
       ];
     },
+
     data: function () {
       return {
         subscription: Subscriptions.findOne(),
-      }
+      };
     },
   });
 });

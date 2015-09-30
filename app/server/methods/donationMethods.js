@@ -5,7 +5,12 @@ Meteor.methods({
     amount = parseFloat(amount);
     check(amount, Number);
 
+    console.log(token.id);
+    console.log(amount);
+
     var result = Meteor.call('stripeCreateCharge', token.id, amount);
+
+    console.log(result);
 
     if (result.status === 'succeeded') {
 
@@ -13,8 +18,7 @@ Meteor.methods({
 
     } else {
 
-      console.log('Stripe single charge failure:');
-      console.log(result);
+      console.log('Stripe single charge failure:', result);
       throw new Meteor.Error('card-charge-failure', 'Sorry but your card charge failed.');
 
     }
@@ -45,7 +49,7 @@ Meteor.methods({
 
     // create meteor user with stripe customer id saved
 
-    var newUser = Accounts.createUser({email: email, profile: {stripeCustomer: stripeCustomer.id},});
+    var newUser = Accounts.createUser({email: email, profile: {stripeCustomer: stripeCustomer.id,},});
 
     if (!newUser) {
       throw new Meteor.Error('account-creation-failed', 'Sorry failed to create a user account.');

@@ -14,7 +14,13 @@ Template.oneoff.onRendered(function () {
 
 Template.oneoff.events({
 
-  'submit #oneoff': function(e, instance) {
+  'click .trigger-optional-address': function(e, template) {
+    e.preventDefault();
+
+    template.$('.optional-address').toggle();
+  },
+
+  'submit #oneoff': function(e) {
     e.preventDefault();
 
     var $form = $(e.target);
@@ -30,36 +36,29 @@ Template.oneoff.events({
 
           if (err) {
             console.log(err);
+            Alerta.error('Charge failed. Your card could be declined, you could have entered invalid details or our server could be having problems.');
           } else {
-//             console.log(response);
             Router.go('/thanks');
-
           }
 
           $form.find('button').prop('disabled', false);
 
-
         });
 
-      } else if (status === 400) {
+      } else if (status === 400 || status === 402) {
 
-        // Bad Request	Often missing a required parameter.
-        console.log(response);
-
-        $form.find('button').prop('disabled', false);
-
-
-      } else if (status === 402) {
-
-        // Request Failed	Parameters were valid but request failed.
-        console.log(response);
+        Alerta.error(response.error.message);
 
         $form.find('button').prop('disabled', false);
+
+      } else {
+
+        Alerta.error('Problem with payment processor Stripe. Please try again later');
 
       }
 
     });
 
-  }
+  },
 
 });

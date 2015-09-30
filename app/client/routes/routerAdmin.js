@@ -15,14 +15,12 @@ Router.onBeforeAction(function () {
     } else {
       this.redirect('/');
     }
-  },
 
-  {
+  }, {
+
     only: ['admin',],
-  }
-);
 
-
+  });
 
 // Routes
 
@@ -35,11 +33,12 @@ Router.map(function() {
         Meteor.subscribe('subscriptions'),
       ];
     },
+
     data: function () {
       return {
         donations: Donations.find(),
         subscriptions: Subscriptions.find(),
-      }
+      };
     },
   });
 

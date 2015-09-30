@@ -82,7 +82,7 @@ Meteor.methods({
 
     // cancel all subscriptions
 
-    var userSubscriptions = Subscriptions.find({user: this.userId});
+    var userSubscriptions = Subscriptions.find({user: this.userId,});
 
     if (userSubscriptions.count() > 0) {
 
@@ -100,6 +100,7 @@ Meteor.methods({
     // delete Stripe customer
 
     var deletedStripeCustomer = Meteor.call('stripeDeleteCustomer', user.profile.stripeCustomer);
+
     if (!deletedStripeCustomer) {
       throw new Meteor.Error('stripe-customer-delete-failed', 'Sorry Stripe failed to delete the customer.');
     }

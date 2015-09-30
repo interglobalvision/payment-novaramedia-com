@@ -14,7 +14,6 @@ var gulp = require('gulp'),
  */
 gulp.task('lintjs', function () {
   return gulp.src([
-    'gulpfile.js',
     'app/**/*.js',
     '!app/.meteor/**/*.js',
     '!app/packages/**/*.js',
@@ -31,7 +30,6 @@ gulp.task('lintjs', function () {
  */
 gulp.task('watch', function () {
   gulp.watch([
-    'gulpfile.js',
     'app/**/*.js',
     '!app/.meteor/**/*.js',
     '!app/packages/**/*.js',

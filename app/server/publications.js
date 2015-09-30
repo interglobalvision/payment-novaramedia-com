@@ -1,14 +1,6 @@
-/* ---------------------------------------------------- +/
-
-## Publications ##
-
-All publications-related code.
-
-/+ ---------------------------------------------------- */
-
 Meteor.publish('donations', function() {
 
-  if (Roles.userIsInRole(this.userId, ['admin'])) {
+  if (Roles.userIsInRole(this.userId, ['admin',])) {
 
     return Donations.find();
 
@@ -23,7 +15,7 @@ Meteor.publish('donations', function() {
 
 Meteor.publish('subscriptions', function() {
 
-  if (Roles.userIsInRole(this.userId, ['admin'])) {
+  if (Roles.userIsInRole(this.userId, ['admin',])) {
 
     return Subscriptions.find();
 
@@ -38,6 +30,6 @@ Meteor.publish('subscriptions', function() {
 
 Meteor.publish('userSubscriptions', function() {
 
-  return Subscriptions.find({user: this.userId});
+  return Subscriptions.find({user: this.userId,});
 
 });
