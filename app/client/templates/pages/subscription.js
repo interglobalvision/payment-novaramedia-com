@@ -34,7 +34,8 @@ Template.subscription.events({
             console.log(err);
             alert(err.message);
           } else {
-            console.log(response);
+//             console.log(response);
+            Router.go('/thanks');
 
           }
 

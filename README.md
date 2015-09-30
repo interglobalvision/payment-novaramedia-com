@@ -16,7 +16,13 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 - Admin route. Allows the admin user to see recent donations/subs and overall totals ✔
 
-- Thanks route after successful donations
+- Thanks route after successful donations ✔
+
+- Fix user routes
+
+- Card/payment error handling
+
+- Fix try/catch failures
 
 - Full Novara styling
 

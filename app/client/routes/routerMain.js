@@ -25,7 +25,7 @@ Router.onBeforeAction(function () {
   },
 
   {
-    except: ['login','homepage','oneoff','subscription','root',],
+    except: ['login','forgot','homepage','oneoff','subscription','root','faq'],
   }
 );
 
@@ -57,5 +57,9 @@ Router.map(function() {
       return this.params.query;
     },
   });
+
+  this.route('thanks');
+
+  this.route('faq');
 
 });

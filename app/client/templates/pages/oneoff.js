@@ -17,9 +17,6 @@ Template.oneoff.events({
   'submit #oneoff': function(e, instance) {
     e.preventDefault();
 
-    console.log(e);
-    console.log(instance);
-
     var $form = $(e.target);
     var chargeAmount = $form.find('#donation-amount').val();
 
@@ -29,15 +26,13 @@ Template.oneoff.events({
 
       if (status === 200) {
 
-        console.log(response);
         Meteor.call('singleCharge', response, chargeAmount, function(err, response) {
 
           if (err) {
             console.log(err);
           } else {
-            console.log(response);
-            // success
-            alert('thank you for donation!')
+//             console.log(response);
+            Router.go('/thanks');
 
           }
 
