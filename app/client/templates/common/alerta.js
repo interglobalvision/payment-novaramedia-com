@@ -10,6 +10,7 @@ Template.alerta.onRendered(function() {
 
       messagesDiv.html(Session.get('alerta'));
       holder.slideDown();
+      $('html, body').animate({scrollTop: 0,});
 
       Meteor.clearTimeout(timeout);
 
