@@ -27,6 +27,7 @@ Template.oneoff.events({
     var chargeAmount = $form.find('#donation-amount').val();
 
     $form.find('button').prop('disabled', true);
+    Alerta.message('Processing donation')
 
     Stripe.card.createToken($form, function(status, response) {
 
@@ -38,6 +39,7 @@ Template.oneoff.events({
             console.log(err);
             Alerta.error('Charge failed. Your card could be declined, you could have entered invalid details or our server could be having problems.');
           } else {
+            Alerta.clear();
             Router.go('/thanks');
           }
 
@@ -53,7 +55,7 @@ Template.oneoff.events({
 
       } else {
 
-        Alerta.error('Problem with payment processor Stripe. Please try again later');
+        Alerta.error('Problem with payment processor Stripe. Please check your card details or try again later');
 
       }
 

@@ -14,6 +14,12 @@ Template.subscription.onRendered(function () {
 
 Template.subscription.events({
 
+  'click .trigger-optional-address': function(e, template) {
+    e.preventDefault();
+
+    template.$('.optional-address').toggle();
+  },
+
   'submit #subscription': function(e, instance) {
     e.preventDefault();
 
@@ -22,6 +28,7 @@ Template.subscription.events({
     var email = $form.find('#email').val();
 
     $form.find('button').prop('disabled', true);
+    Alerta.message('Processing donation')
 
     Stripe.card.createToken($form, function(status, response) {
 
@@ -32,11 +39,9 @@ Template.subscription.events({
 
           if (err) {
             console.log(err);
-            Alerta.error(err.message);
+            Alerta.error('Charge failed. Your card could be declined, you could have entered invalid details or our server could be having problems.');
           } else {
-//             console.log(response);
             Router.go('/thanks');
-
           }
 
           $form.find('button').prop('disabled', false);
@@ -51,7 +56,7 @@ Template.subscription.events({
 
       } else {
 
-        Alerta.error('Problem with payment processor Stripe. Please try again later');
+        Alerta.error('Problem with payment processor Stripe. Please check your card details or try again later');
 
       }
 
