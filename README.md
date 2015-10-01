@@ -28,6 +28,14 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 - Social shares on thanks page
 
+- Add spinner processing indication
+
+- Forgot submit tells you to check your email
+
+- Emails!!! :(
+  
+- Routing once logged in
+
 ####v1.1
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
