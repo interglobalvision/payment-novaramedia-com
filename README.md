@@ -16,8 +16,7 @@ Process one-off and recurring donations to Novara Media using Stripe.
 - Full Novara styling ✔
 - Social shares on thanks page ✔
 - Add processing indication ✔
-
-- Forgot submit tells you to check your email
+- Forgot submit tells you to check your email ✔
 
 - Card/payment error handling
 
