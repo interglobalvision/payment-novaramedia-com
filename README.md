@@ -26,6 +26,8 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 - Full Novara styling ✔
 
+- Social shares on thanks page
+
 ####v1.1
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
