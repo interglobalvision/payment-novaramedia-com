@@ -24,4 +24,18 @@ Template.alerta.onRendered(function() {
     }
 
   });
+
+  _this.autorun(function() {
+
+    if (Session.get('alertaReset')) {
+
+      Meteor.clearTimeout(timeout);
+      holder.slideUp();
+      Session.set('alertaReset', null);
+
+    }
+
+  });
+
+
 });
