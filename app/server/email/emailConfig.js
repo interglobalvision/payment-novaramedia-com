@@ -2,7 +2,7 @@ Accounts.emailTemplates.siteName = 'Novara Media Donation Processing';
 Accounts.emailTemplates.from = 'Novara Media Donation Processing <donations@novaramedia.com>';
 
 Accounts.emailTemplates.enrollAccount.subject = function (user) {
-    return 'Thank you for you subscription to Novara Media';
+    return 'Thank you for your subscription to Novara Media';
 };
 
 Accounts.emailTemplates.enrollAccount.text = function (user, url) {
