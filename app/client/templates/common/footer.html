@@ -8,6 +8,7 @@
           <li><a href="{{pathFor 'faq'}}">FAQ/Help</a></li>
           {{#if isLoggedIn}}
           <li><a href="{{pathFor 'profile'}}">Profile</a></li>
+          <li><a href class="logout">Logout</a></li>
           {{else}}
           <li><a href="{{pathFor 'login'}}">Log In</a></li>
           <li><a href="{{pathFor 'forgot'}}">Forgot Password</a></li>

@@ -4,3 +4,10 @@ Template.footer.helpers({
   },
 
 });
+
+Template.footer.events({
+  'click .logout': function() {
+    Meteor.logout();
+  },
+
+});
