@@ -1,8 +1,3 @@
-Template.subscription.onCreated(function () {
-  var _this = this;
-
-});
-
 Template.subscription.onRendered(function () {
   var _this = this;
 

@@ -1,8 +1,3 @@
-Template.oneoff.onCreated(function () {
-  var _this = this;
-
-});
-
 Template.oneoff.onRendered(function () {
   var _this = this;
 

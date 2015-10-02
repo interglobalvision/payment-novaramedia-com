@@ -37,5 +37,4 @@ Template.alerta.onRendered(function() {
 
   });
 
-
 });

@@ -18,6 +18,22 @@
     "Mongo",
     "document",
     "jQuery",
-    "$"
+    "$",
+    "Subscriptions",
+    "Donations",
+    "check",
+    "Roles",
+    "Template",
+    "Alerta",
+    "Session",
+    "Router",
+    "Accounts",
+    "Match",
+    "Handlebars",
+    "TAPi18n",
+    "getUserLanguage",
+    "Stripe",
+    "StripeAPI",
+    "moment"
   ]
 }

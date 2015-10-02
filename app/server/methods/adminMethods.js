@@ -11,7 +11,7 @@ Meteor.methods({
 
     console.log('Deleted donation records', donations);
 
-    var users = Meteor.users.find({_id: { $ne: this.userId }});
+    var users = Meteor.users.find({_id: {$ne: this.userId,},});
 
     users.forEach(function(user) {
 

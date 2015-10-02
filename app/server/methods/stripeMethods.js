@@ -18,8 +18,10 @@ Meteor.methods({
     console.log(source);
     console.log(amount);
 
+    var charge;
+
     try {
-      var charge = syncChargesCreate({
+      charge = syncChargesCreate({
         amount: (amount * 100),
         currency: 'gbp',
         source: source,
