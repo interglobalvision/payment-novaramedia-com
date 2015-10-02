@@ -1,3 +1,4 @@
+/*
 Meteor.methods({
 
   nuclear: function() {
@@ -23,3 +24,4 @@ Meteor.methods({
   },
 
 });
+*/
