@@ -36,8 +36,8 @@ Router.map(function() {
 
     data: function () {
       return {
-        donations: Donations.find(),
-        subscriptions: Subscriptions.find(),
+        donations: Donations.find({}, {sort: {createdAt: -1,},}),
+        subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
       };
     },
   });
