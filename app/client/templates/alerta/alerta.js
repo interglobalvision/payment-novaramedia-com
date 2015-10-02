@@ -19,7 +19,7 @@ Template.alerta.onRendered(function() {
         holder.slideUp();
         Session.set('alerta', null);
 
-      }, 3500);
+      }, 3000);
 
     }
 

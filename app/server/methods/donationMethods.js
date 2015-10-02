@@ -31,8 +31,6 @@ Meteor.methods({
     amount = parseInt(amount);
     check(amount, Number);
 
-    console.log('amount', amount);
-
     // check for existing meteor user
 
     if (Accounts.findUserByEmail(email)) {
@@ -70,6 +68,8 @@ Meteor.methods({
     if (!newSubscription) {
       throw new Meteor.Error('subscription-creation-failed', 'Sorry failed to create a subscription record.');
     }
+
+    Accounts.sendEnrollmentEmail(newUser);
 
     return true;
 

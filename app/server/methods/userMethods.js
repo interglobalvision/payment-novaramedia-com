@@ -80,6 +80,10 @@ Meteor.methods({
   deleteUser: function() {
     check(this.userId, String);
 
+    if (Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-allowed', 'Sorry but you are admin. You cant delete your account');
+    }
+
     // cancel all subscriptions
 
     var userSubscriptions = Subscriptions.find({user: this.userId,});

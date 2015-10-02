@@ -27,7 +27,7 @@ Template.oneoff.events({
     var chargeAmount = $form.find('#donation-amount').val();
 
     $form.find('button').prop('disabled', true);
-    Alerta.message('Processing donation')
+    Alerta.message('Processing donation');
 
     Stripe.card.createToken($form, function(status, response) {
 

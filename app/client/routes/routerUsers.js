@@ -18,3 +18,7 @@ Router.map(function() {
     },
   });
 });
+
+Accounts.onLogin(function() {
+  Router.go('/');
+});

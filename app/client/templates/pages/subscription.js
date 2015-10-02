@@ -28,18 +28,17 @@ Template.subscription.events({
     var email = $form.find('#email').val();
 
     $form.find('button').prop('disabled', true);
-    Alerta.message('Processing donation')
+    Alerta.message('Processing donation');
 
     Stripe.card.createToken($form, function(status, response) {
 
       if (status === 200) {
 
-        console.log(response);
         Meteor.call('createSubscription', email, response, chargeAmount, function(err, response) {
 
           if (err) {
             console.log(err);
-            Alerta.error('Charge failed. Your card could be declined, you could have entered invalid details or our server could be having problems.');
+            Alerta.error(err.reason);
           } else {
             Router.go('/thanks');
           }
