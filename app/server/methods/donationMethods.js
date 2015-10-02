@@ -5,12 +5,9 @@ Meteor.methods({
     amount = parseFloat(amount);
     check(amount, Number);
 
-    console.log(token.id);
-    console.log(amount);
-
     var result = Meteor.call('stripeCreateCharge', token.id, amount);
 
-    console.log(result);
+//     console.log(result);
 
     if (result.status === 'succeeded') {
 
