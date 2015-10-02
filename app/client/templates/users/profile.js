@@ -2,10 +2,14 @@ Template.profile.events = {
   'click .cancel-subscription': function(e) {
     e.preventDefault();
 
+    Alerta.message('Processing request');
+
     Meteor.call('deleteSubscription', this.subscription._id, function(err, result) {
       if (err) {
         console.log(err);
       }
+      Alerta.message('Subscription deleted');
+
     });
 
   },
@@ -18,10 +22,17 @@ Template.profile.events = {
       alert('Please enter a new subscription amount');
     }
 
+    template.$('#edit-subscription-button').prop('disabled', true);
+
+    Alerta.message('Processing request');
     Meteor.call('editSubscription', this.subscription._id, amount, function(err, result) {
       if (err) {
         console.log(err);
       }
+
+      template.$('#edit-subscription-button').prop('disabled', false);
+      Alerta.message('Subscription edited');
+
     });
 
   },
@@ -30,10 +41,16 @@ Template.profile.events = {
     e.preventDefault();
     var amount = template.$('#new-subscription-donation-amount').val();
 
+    template.$('#new-subscription-button').prop('disabled', true);
+
+    Alerta.message('Processing request');
     Meteor.call('newSubscription', amount, function(err, result) {
       if (err) {
         console.log(err);
       }
+      template.$('#new-subscription-button').prop('disabled', false);
+      Alerta.message('Subscription created. Thank you.');
+
     });
 
   },

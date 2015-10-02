@@ -26,7 +26,7 @@
                   <input type="text" required value="{{subscription.amount}}" name="donation-amount" id="edit-subscription-donation-amount"/>
                 </label>
               </div>
-              <button type="submit">Edit subscription</button>
+              <button type="submit" id="edit-subscription-button">Edit subscription</button>
           </form>
           {{else}}
           <form id="new-subscription">
@@ -37,7 +37,7 @@
                 <input type="text" required name="donation-amount" id="new-subscription-donation-amount"/>
               </label>
             </div>
-            <button type="submit">Donate</button>
+            <button type="submit" id="new-subscription-button">Donate</button>
           </form>
           {{/if}}
 
