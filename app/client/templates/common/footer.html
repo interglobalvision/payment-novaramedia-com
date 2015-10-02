@@ -13,6 +13,9 @@
           <li><a href="{{pathFor 'login'}}">Log In</a></li>
           <li><a href="{{pathFor 'forgot'}}">Forgot Password</a></li>
           {{/if}}
+          {{#if isInRole 'admin'}}
+          <li><a href="{{pathFor 'admin'}}">Admin</a></li>
+          {{/if}}
         </ul>
       </div>
     </div>
