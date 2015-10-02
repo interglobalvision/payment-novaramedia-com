@@ -84,13 +84,13 @@ Meteor.methods({
       throw new Meteor.Error('not-allowed', 'Sorry but you are admin. You cant delete your account');
     }
 
+    var user = Meteor.users.findOne(this.userId);
+
     // cancel all subscriptions
 
     var userSubscriptions = Subscriptions.find({user: this.userId,});
 
     if (userSubscriptions.count() > 0) {
-
-      var user = Meteor.users.findOne(this.userId);
 
       userSubscriptions.forEach(function(subscription) {
 
@@ -112,6 +112,44 @@ Meteor.methods({
     // remove meteor user
 
     return Meteor.users.remove(this.userId);
+
+  },
+
+  deleteUserById: function(userId) {
+    check(userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-allowed', 'Sorry but you are not admin. You cant delete accounts');
+    }
+
+    var user = Meteor.users.findOne(userId);
+
+    // cancel all subscriptions
+
+    var userSubscriptions = Subscriptions.find({user: userId,});
+
+    if (userSubscriptions.count() > 0) {
+
+      userSubscriptions.forEach(function(subscription) {
+
+        if (Meteor.call('stripeCancelSubscription', user.profile.stripeCustomer, subscription.stripeId)) {
+          Subscriptions.remove(subscription._id);
+        }
+      });
+
+    }
+
+    // delete Stripe customer
+
+    var deletedStripeCustomer = Meteor.call('stripeDeleteCustomer', user.profile.stripeCustomer);
+
+    if (!deletedStripeCustomer) {
+      throw new Meteor.Error('stripe-customer-delete-failed', 'Sorry Stripe failed to delete the customer.');
+    }
+
+    // remove meteor user
+
+    return Meteor.users.remove(userId);
 
   },
 
