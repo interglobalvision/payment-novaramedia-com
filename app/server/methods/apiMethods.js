@@ -8,7 +8,7 @@ Meteor.methods({
       subscriptionsTotal += post.amount;
     });
 
-    console.log('Total in subs', subscriptionsTotal);
+//     console.log('Total in subs', subscriptionsTotal);
 
     var donations = Donations.find();
     var donationsTotal = 0;
@@ -16,7 +16,7 @@ Meteor.methods({
       donationsTotal += post.amount;
     });
 
-    console.log('Total in donations', donationsTotal);
+//     console.log('Total in donations', donationsTotal);
 
     return subscriptionsTotal + donationsTotal;
 
