@@ -4,6 +4,12 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 ---
 
+### Dev
+
+Has optional gulpfile in project root than can lint
+
+---
+
 ###TODO
 
 - One-off route. A form to make a one off payment. Stripe tokenize and make payment on server. Save only reference to payments in DB ✔
@@ -25,4 +31,5 @@ Process one-off and recurring donations to Novara Media using Stripe.
 ####v1.1
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
-- Export subscribers to Mailchimp
+- Export subscribers to Mailchimp ✔
+- Allow user to update card details (possibly not needed if the failed subscription handles properly)
