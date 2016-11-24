@@ -6,4 +6,4 @@ Router.route('/api/total', function(){
   this.response.end(JSON.stringify(
     Meteor.call('apiTotal')
   ));
-}, {where: 'server'});
+}, {where: 'server',});

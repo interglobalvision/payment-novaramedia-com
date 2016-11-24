@@ -1,7 +1,7 @@
 Template.export.helpers({
-  displayEmail(userId) {
+  displayEmail: function(userId) {
     var user = Meteor.users.findOne(userId);
 
     return user.emails[0].address;
-  }
+  },
 });

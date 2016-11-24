@@ -18,7 +18,7 @@ Router.onBeforeAction(function () {
 
   }, {
 
-    only: ['admin', 'export'],
+    only: ['admin', 'export',],
 
   });
 

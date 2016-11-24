@@ -8,8 +8,8 @@ Template.profile.events = {
       if (err) {
         console.log(err);
       }
-      Alerta.message('Subscription deleted');
 
+      Alerta.message('Subscription deleted');
     });
 
   },
@@ -48,9 +48,9 @@ Template.profile.events = {
       if (err) {
         console.log(err);
       }
+
       template.$('#new-subscription-button').prop('disabled', false);
       Alerta.message('Subscription created. Thank you.');
-
     });
 
   },

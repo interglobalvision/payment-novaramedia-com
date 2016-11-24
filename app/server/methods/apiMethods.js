@@ -1,9 +1,9 @@
 Meteor.methods({
 
   apiTotal: function() {
-
     var subscriptions = Subscriptions.find();
     var subscriptionsTotal = 0;
+
     subscriptions.forEach(function (post) {
       subscriptionsTotal += post.amount;
     });
@@ -12,6 +12,7 @@ Meteor.methods({
 
     var donations = Donations.find();
     var donationsTotal = 0;
+
     donations.forEach(function (post) {
       donationsTotal += post.amount;
     });
