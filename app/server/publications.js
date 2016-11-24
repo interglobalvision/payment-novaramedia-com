@@ -33,3 +33,18 @@ Meteor.publish('userSubscriptions', function() {
   return Subscriptions.find({user: this.userId,});
 
 });
+
+Meteor.publish('users', function() {
+
+  if (Roles.userIsInRole(this.userId, ['admin',])) {
+
+    return Meteor.users.find();
+
+  } else {
+
+    this.stop();
+    return;
+
+  };
+
+});

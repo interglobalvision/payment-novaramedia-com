@@ -18,7 +18,7 @@ Router.onBeforeAction(function () {
 
   }, {
 
-    only: ['admin',],
+    only: ['admin', 'export'],
 
   });
 
@@ -38,6 +38,22 @@ Router.map(function() {
       return {
         donations: Donations.find({}, {sort: {createdAt: -1,},}),
         subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
+      };
+    },
+  });
+
+  this.route('export', {
+    waitOn: function () {
+      return [
+        Meteor.subscribe('subscriptions'),
+        Meteor.subscribe('users'),
+      ];
+    },
+
+    data: function () {
+      return {
+        subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
+        users: Meteor.users.find(),
       };
     },
   });
