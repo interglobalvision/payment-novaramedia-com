@@ -32,4 +32,5 @@ Has optional gulpfile in project root than can lint
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
 - Export subscribers to Mailchimp ✔
+- Admin user functions: Search and delete accounts (with serious warnings)
 - Allow user to update card details (possibly not needed if the failed subscription handles properly)
