@@ -1,4 +1,4 @@
-Template.export.helpers({
+Template.listUsers.helpers({
   displayEmail: function(userId) {
     var user = Meteor.users.findOne(userId);
 

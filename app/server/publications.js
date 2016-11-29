@@ -9,7 +9,7 @@ Meteor.publish('donations', function() {
     this.stop();
     return;
 
-  };
+  }
 
 });
 
@@ -24,7 +24,7 @@ Meteor.publish('subscriptions', function() {
     this.stop();
     return;
 
-  };
+  }
 
 });
 
@@ -45,6 +45,40 @@ Meteor.publish('users', function() {
     this.stop();
     return;
 
-  };
+  }
+
+});
+
+Meteor.publish('singleUser', function(user) {
+
+  check(user, String);
+
+  if (Roles.userIsInRole(this.userId, ['admin',])) {
+
+    return Meteor.users.find({_id: user,});
+
+  } else {
+
+    this.stop();
+    return;
+
+  }
+
+});
+
+Meteor.publish('singleSubscription', function(user) {
+
+  check(user, String);
+
+  if (Roles.userIsInRole(this.userId, ['admin',])) {
+
+    return Subscriptions.find({user: user,});
+
+  } else {
+
+    this.stop();
+    return;
+
+  }
 
 });
