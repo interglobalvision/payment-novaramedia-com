@@ -1,0 +1,31 @@
+<template name="adminUser">
+  <div class="container">
+    <div class="row padded-text">
+      <div class="col col12">
+        <h3>User</h3>
+        ID: {{user._id}}<br/>
+        Created: {{user.createdAt}}<br/>
+        Email: {{displayEmail user}}<br/>
+        Stripe Customer ID: {{user.profile.stripeCustomer}}
+      </div>
+      <div class="col col12">
+        <h3>Subscription</h3>
+        ID: {{subscription._id}}<br/>
+        Created: {{subscription.createdAt}}<br/>
+        Amount: £{{subscription.amount}}<br/>
+        Stripe Subscription ID: {{subscription.stripeId}}
+      </div>
+    </div>
+  </div>
+<div class="container">
+    <div class="row padded-text">
+      <div class="col col24">
+        <h3>Actions</h3>
+
+        <ul>
+          <li><a class="action-delete u-pointer">Delete User</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>

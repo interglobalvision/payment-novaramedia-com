@@ -18,9 +18,9 @@ Router.onBeforeAction(function () {
 
   }, {
 
-    only: ['admin', 'export',],
+    only: ['admin', 'listUsers', 'singleUser',],
 
-  });
+});
 
 // Routes
 
@@ -42,7 +42,8 @@ Router.map(function() {
     },
   });
 
-  this.route('export', {
+  this.route('listUsers', {
+    path: '/admin/users',
     waitOn: function () {
       return [
         Meteor.subscribe('subscriptions'),
@@ -54,6 +55,25 @@ Router.map(function() {
       return {
         subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
         users: Meteor.users.find(),
+      };
+    },
+  });
+
+  this.route('singleUser', {
+    path: '/admin/user/:_id',
+    template: 'adminUser',
+
+    waitOn: function () {
+      return [
+        Meteor.subscribe('singleUser', this.params._id),
+        Meteor.subscribe('singleSubscription', this.params._id),
+      ];
+    },
+
+    data: function () {
+      return {
+        user: Meteor.users.findOne(this.params._id),
+        subscription: Subscriptions.findOne(),
       };
     },
   });

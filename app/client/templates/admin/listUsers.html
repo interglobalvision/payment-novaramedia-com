@@ -1,0 +1,20 @@
+<template name="listUsers">
+  <div class="container">
+    <div class="row padded-text">
+      <div class="col col12">
+        <h3>Subscriber Users</h3>
+        {{#each subscriptions}}
+          <div>
+            <a href="/admin/user/{{ user }}">{{displayEmail user}}</a>
+          </div>
+        {{/each}}
+      </div>
+      <div class="col col12">
+        <h3>Emails for Export</h3>
+        {{#each subscriptions}}
+          {{displayEmail user}},
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
