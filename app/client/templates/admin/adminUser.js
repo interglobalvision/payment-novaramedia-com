@@ -7,7 +7,7 @@ Template.adminUser.helpers({
 });
 
 Template.adminUser.events({
-  'click.action-delete': function() {
+  'click .action-delete': function() {
 
     if (window.confirm('Are you sure you want to delete this user?')) {
       Meteor.call('deleteUserById', this.user._id, function(err, response) {
