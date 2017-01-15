@@ -1,5 +1,7 @@
 var Stripe = StripeAPI(Meteor.settings.stripe.secret);
 
+// Stripe.setApiVersion('2016-07-06');
+
 var syncChargesCreate = Meteor.wrapAsync(Stripe.charges.create, Stripe.charges);
 
 var syncCustomersCreate = Meteor.wrapAsync(Stripe.customers.create, Stripe.customers);
@@ -8,6 +10,9 @@ var syncCustomersDelete = Meteor.wrapAsync(Stripe.customers.del, Stripe.customer
 var syncSubscriptionsCreate = Meteor.wrapAsync(Stripe.customers.createSubscription, Stripe.customers);
 var syncSubscriptionsUpdate = Meteor.wrapAsync(Stripe.customers.updateSubscription, Stripe.customers);
 var syncSubscriptionsCancel = Meteor.wrapAsync(Stripe.customers.cancelSubscription, Stripe.customers);
+
+var syncCustomerRetrieve = Meteor.wrapAsync(Stripe.customers.retrieve, Stripe.customers);
+var syncCardRetrieve = Meteor.wrapAsync(Stripe.customers.retrieveCard, Stripe.customers);
 
 Meteor.methods({
 
@@ -135,6 +140,23 @@ Meteor.methods({
 
   },
 
+  stripeCheckCustomer: function(stripeCustomerId) {
+    check(stripeCustomerId, String);
+
+    try {
+
+      var stripeCustomer = syncCustomerRetrieve(stripeCustomerId);
+
+    } catch(error) {
+      console.log('Stripe customer check error:', error.type);
+      console.log('Stripe customer check error:', error.message);
+      throw new Meteor.Error('stripe-account-check-failed', 'Sorry Stripe failed to check the user account. This was because: ' + error.message);
+    }
+
+    return stripeCustomer;
+
+  },
+
   stripeDeleteCustomer: function(stripeCustomerId) {
     check(stripeCustomerId, String);
 
@@ -151,6 +173,26 @@ Meteor.methods({
 //     console.log('Deleted customer:', stripeDeleteCustomer);
 
     return stripeDeleteCustomer;
+
+  },
+
+  // CARDS
+
+  stripeCheckCard: function(stripeCustomerId, stripeCardId) {
+    check(stripeCustomerId, String);
+    check(stripeCardId, String);
+
+    try {
+
+      var stripeCard = syncCardRetrieve(stripeCustomerId, stripeCardId);
+
+    } catch(error) {
+      console.log('Stripe customer check error:', error.type);
+      console.log('Stripe customer check error:', error.message);
+      throw new Meteor.Error('stripe-card-check-failed', 'Sorry Stripe failed to check the user card. This was because: ' + error.message);
+    }
+
+    return stripeCard;
 
   },
 });
