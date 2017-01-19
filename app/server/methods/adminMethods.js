@@ -1,16 +1,14 @@
 Meteor.methods({
 
-  checkCustomerAndCard: function(customerId) {
-    check(customerId, String);
+  checkCustomerAndCard: function(stripeCustomerId) {
+    check(stripeCustomerId, String);
     check(this.userId, String);
-
-    console.log('customer id', customerId);
 
     if (!Roles.userIsInRole(this.userId, 'admin')) {
       throw new Meteor.Error('not-allowed', 'Sorry but you are not admin.');
     }
 
-    var stripeCustomer = Meteor.call('stripeCheckCustomer', customerId);
+    var stripeCustomer = Meteor.call('stripeCheckCustomer', stripeCustomerId);
 
     if (!stripeCustomer) {
       throw new Meteor.Error('customer-check-failed', 'Sorry failed to check the Stripe customer.');
@@ -28,6 +26,30 @@ Meteor.methods({
     };
 
     return data;
+
+  },
+
+  trimSubscription: function(stripeCustomerId, subscriptionId) {
+    check(stripeCustomerId, String);
+    check(subscriptionId, String);
+
+    check(this.userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-allowed', 'Sorry but you are not admin.');
+    }
+
+    var stripeCustomer = Meteor.call('stripeCheckCustomer', stripeCustomerId);
+
+    if (!stripeCustomer) {
+      throw new Meteor.Error('customer-check-failed', 'Sorry failed to check the Stripe customer.');
+    }
+
+    if (stripeCustomer.subscriptions.total_count === 0) {
+      return Subscriptions.remove(subscriptionId);
+    } else {
+      throw new Meteor.Error('subscription-trim-failed', 'Stripe customer still has associated subscription');
+    }
 
   },
 
