@@ -174,23 +174,4 @@ Meteor.methods({
 
   },
 
-  // CARDS
-
-  stripeCheckCard: function(stripeCustomerId, stripeCardId) {
-    check(stripeCustomerId, String);
-    check(stripeCardId, String);
-
-    try {
-
-      var stripeCard = syncCardRetrieve(stripeCustomerId, stripeCardId);
-
-    } catch(error) {
-      console.log('Stripe customer check error:', error.type);
-      console.log('Stripe customer check error:', error.message);
-      throw new Meteor.Error('stripe-card-check-failed', 'Sorry Stripe failed to check the user card. This was because: ' + error.message);
-    }
-
-    return stripeCard;
-
-  },
 });

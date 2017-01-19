@@ -8,7 +8,6 @@ Template.adminUser.helpers({
 
 Template.adminUser.events({
   'click .action-check-customer-and-card': function() {
-    console.log(this);
 
     Meteor.call('checkCustomerAndCard', this.user.profile.stripeCustomer, function(err, response) {
 
@@ -16,10 +15,8 @@ Template.adminUser.events({
         console.log(err);
         Alerta.error(err.reason);
       } else {
-        console.log(response);
-
-        if (response.stripeCard) {
-          var expiry = moment(response.stripeCard.exp_year + '-' + response.stripeCard.exp_month + '-01').endOf('month');
+        if (response.sources.total_count > 0) {
+          var expiry = moment(response.sources.data[0].exp_year + '-' + response.sources.data[0].exp_month + '-01').endOf('month');
 
           if (moment().isAfter(expiry)) {
             console.log('Main payment card is expired');
@@ -31,6 +28,7 @@ Template.adminUser.events({
           $('.action-trim-subscription').removeClass('u-hidden');
         }
 
+        console.log(response);
         Alerta.message('Check console for details');
       }
 

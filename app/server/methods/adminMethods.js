@@ -14,18 +14,7 @@ Meteor.methods({
       throw new Meteor.Error('customer-check-failed', 'Sorry failed to check the Stripe customer.');
     }
 
-    var stripeCard = Meteor.call('stripeCheckCard', stripeCustomer.id, stripeCustomer.default_source);
-
-    if (!stripeCard) {
-      throw new Meteor.Error('card-check-failed', 'Sorry failed to check the Stripe card.');
-    }
-
-    var data = {
-      'stripeCustomer': stripeCustomer,
-      'stripeCard': stripeCard,
-    };
-
-    return data;
+    return stripeCustomer;
 
   },
 
