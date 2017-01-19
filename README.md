@@ -30,7 +30,13 @@ Has optional gulpfile in project root than can lint
 
 ####v1.1
 
+- Export subscribers data for Mailchimp ✔
+- Admin user functions: Search, check status and delete accounts (with serious warnings)
+
+####v1.2
+
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
-- Export subscribers to Mailchimp ✔
-- Admin user functions: Search and delete accounts (with serious warnings)
-- Allow user to update card details (possibly not needed if the failed subscription handles properly)
+
+####v1.3
+
+- Sync subscribers to Mailchimp via API

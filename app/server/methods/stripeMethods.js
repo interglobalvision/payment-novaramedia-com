@@ -9,6 +9,9 @@ var syncSubscriptionsCreate = Meteor.wrapAsync(Stripe.customers.createSubscripti
 var syncSubscriptionsUpdate = Meteor.wrapAsync(Stripe.customers.updateSubscription, Stripe.customers);
 var syncSubscriptionsCancel = Meteor.wrapAsync(Stripe.customers.cancelSubscription, Stripe.customers);
 
+var syncCustomerRetrieve = Meteor.wrapAsync(Stripe.customers.retrieve, Stripe.customers);
+var syncCardRetrieve = Meteor.wrapAsync(Stripe.customers.retrieveCard, Stripe.customers);
+
 Meteor.methods({
 
   stripeCreateCharge: function(source, amount) {
@@ -135,6 +138,23 @@ Meteor.methods({
 
   },
 
+  stripeCheckCustomer: function(stripeCustomerId) {
+    check(stripeCustomerId, String);
+
+    try {
+
+      var stripeCustomer = syncCustomerRetrieve(stripeCustomerId);
+
+    } catch(error) {
+      console.log('Stripe customer check error:', error.type);
+      console.log('Stripe customer check error:', error.message);
+      throw new Meteor.Error('stripe-account-check-failed', 'Sorry Stripe failed to check the user account. This was because: ' + error.message);
+    }
+
+    return stripeCustomer;
+
+  },
+
   stripeDeleteCustomer: function(stripeCustomerId) {
     check(stripeCustomerId, String);
 
@@ -153,4 +173,5 @@ Meteor.methods({
     return stripeDeleteCustomer;
 
   },
+
 });
