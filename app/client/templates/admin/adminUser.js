@@ -7,9 +7,9 @@ Template.adminUser.helpers({
 });
 
 Template.adminUser.events({
-  'click .action-check-customer-and-card': function() {
+  'click .action-check-customer': function() {
 
-    Meteor.call('checkCustomerAndCard', this.user.profile.stripeCustomer, function(err, response) {
+    Meteor.call('checkCustomer', this.user.profile.stripeCustomer, function(err, response) {
 
       if (err) {
         console.log(err);
@@ -23,7 +23,7 @@ Template.adminUser.events({
           }
         }
 
-        if (response.stripeCustomer.subscriptions.total_count === 0) {
+        if (response.subscriptions.total_count === 0) {
           console.log('No subscription found');
           $('.action-trim-subscription').removeClass('u-hidden');
         }

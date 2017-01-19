@@ -1,6 +1,6 @@
 Meteor.methods({
 
-  checkCustomerAndCard: function(stripeCustomerId) {
+  checkCustomer: function(stripeCustomerId) {
     check(stripeCustomerId, String);
     check(this.userId, String);
 
