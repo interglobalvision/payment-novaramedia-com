@@ -1,7 +1,5 @@
 var Stripe = StripeAPI(Meteor.settings.stripe.secret);
 
-// Stripe.setApiVersion('2016-07-06');
-
 var syncChargesCreate = Meteor.wrapAsync(Stripe.charges.create, Stripe.charges);
 
 var syncCustomersCreate = Meteor.wrapAsync(Stripe.customers.create, Stripe.customers);
