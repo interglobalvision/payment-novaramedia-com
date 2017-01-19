@@ -10,9 +10,11 @@
         {{/each}}
       </div>
       <div class="col col12">
-        <h3>Emails for Export</h3>
-        {{#each subscriptions}}
-          {{displayEmail user}},
+        <h3>All Users</h3>
+        {{#each users}}
+          <div>
+            <a href="/admin/user/{{ _id }}">{{displayEmail _id}}</a>
+          </div>
         {{/each}}
       </div>
     </div>

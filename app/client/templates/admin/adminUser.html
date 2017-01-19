@@ -9,11 +9,13 @@
         Stripe Customer ID: {{user.profile.stripeCustomer}}
       </div>
       <div class="col col12">
+        {{#if subscription}}
         <h3>Subscription</h3>
         ID: {{subscription._id}}<br/>
         Created: {{subscription.createdAt}}<br/>
         Amount: £{{subscription.amount}}<br/>
         Stripe Subscription ID: {{subscription.stripeId}}
+        {{/if}}
       </div>
     </div>
   </div>
