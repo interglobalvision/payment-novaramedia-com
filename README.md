@@ -28,15 +28,20 @@ Has optional gulpfile in project root than can lint
 - Fix try/catch failures ✔
 - Routing once logged in ✔
 
-####v1.1
+####v0.8
 
 - Export subscribers data for Mailchimp ✔
-- Admin user functions: Search, check status and delete accounts (with serious warnings)
+- Basic admin user functions: List, check Stripe status, delete orphaned subscription records and delete accounts (with serious warnings) ✔
 
-####v1.2
+####v0.9
+
+- Registered user card handling for new subscriptions and expired cards
+
+####v1.0
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
+- Basic analytics dashboard: total subscribers, average subscription value, % falloff
 
-####v1.3
+####v1.1
 
 - Sync subscribers to Mailchimp via API
