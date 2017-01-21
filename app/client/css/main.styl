@@ -1,12 +1,23 @@
 @import "resets"
 @import "novara"
 
+#admin-menu, #header
+  font-size: 1.5em
+  font-weight: bold
+  line-height: 1.5
+
+#admin-menu
+  padding: $margin-tiny 0
+  a:hover
+    text-decoration: underline
+
 #header
   background-image: url(/images/marble-1400.jpg)
+  background-color: black
 
 #logo-nm
-  height: 45px
-  width: 45px
+  height: 30px
+  width: 30px
 
 .js-live, ul.u-inline-list li.js-live
   display: none
@@ -14,8 +25,8 @@
 // MAIN
 
 .padded-text
-  padding-top: $margin-basic
-  padding-bottom: $margin-basic
+  margin-top: $margin-basic
+  margin-bottom: $margin-basic
 
 
 @media screen and (max-width: ($col * $cols)+($gutter * $cols))
@@ -26,9 +37,12 @@
   $margin-basic = ($gutter*3)
   $margin-large = ($gutter*5)
 
+  #admin-menu
+    padding: $margin-tiny 0
+
   .padded-text
-    padding-top: $margin-basic
-    padding-bottom: $margin-basic
+    margin-top: $margin-basic
+    margin-bottom: $margin-basic
 
 @media screen and (max-width: 1152px)
 
@@ -38,9 +52,12 @@
   $margin-basic = ($gutter*3)
   $margin-large = ($gutter*5)
 
+  #admin-menu
+    padding: $margin-tiny 0
+
   .padded-text
-    padding-top: $margin-basic
-    padding-bottom: $margin-basic
+    margin-top: $margin-basic
+    margin-bottom: $margin-basic
 
 @media screen and (max-width: 912px)
 
@@ -50,9 +67,12 @@
   $margin-basic = ($gutter*3)
   $margin-large = ($gutter*5)
 
+  #admin-menu
+    padding: $margin-tiny 0
+
   .padded-text
-    padding-top: $margin-basic
-    padding-bottom: $margin-basic
+    margin-top: $margin-basic
+    margin-bottom: $margin-basic
 
 @media screen and (max-width: 696px)
 
@@ -62,6 +82,9 @@
   $margin-basic = ($gutter*3)
   $margin-large = ($gutter*5)
 
+  #admin-menu
+    padding: $margin-tiny 0
+
   .padded-text
-    padding-top: $margin-basic
-    padding-bottom: $margin-basic
+    margin-top: $margin-basic
+    margin-bottom: $margin-basic
