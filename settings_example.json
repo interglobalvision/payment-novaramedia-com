@@ -1,0 +1,24 @@
+{
+  "admin_email": "email@domain.com",
+  "admin_password": "",
+
+  "stripe": {
+    "secret": ""
+  },
+
+  "public": {
+    "stripe": {
+      "publishable": ""
+    },
+    "copy": {
+      "thanks": {
+        "paragraphOne": "Thank you for subscribing",
+        "paragraphTwo": "Stay in touch with us on Facebook"
+      },
+      "email": {
+        "signup": "Thank you for choosing to support us.\n\nStay in touch with us on Facebook"
+      },
+      "hashtag": "ourFundraiser"
+    }
+  }
+}
