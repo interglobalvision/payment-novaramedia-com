@@ -17,7 +17,7 @@
 
   //>>> needs mobile opti
 
-#logo-nm
+.header-logo
   height: 30px
   width: 30px
 
@@ -30,6 +30,11 @@
   margin-top: $margin-basic
   margin-bottom: $margin-basic
 
+.only-mobile
+  display: none
+
+.only-desktop
+  display: initial
 
 @media screen and (max-width: ($col * $cols)+($gutter * $cols))
 
@@ -87,6 +92,17 @@
   #admin-menu
     padding: $margin-tiny 0
 
+  #admin-menu, #header
+    font-size: 1.3em
+    font-weight: bold
+    line-height: 1.4
+
   .padded-text
     margin-top: $margin-basic
     margin-bottom: $margin-basic
+
+  .only-mobile
+    display: initial
+
+  .only-desktop
+    display: none
