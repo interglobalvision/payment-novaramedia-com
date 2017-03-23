@@ -1,22 +1,40 @@
 <template name="header">
 
+  {{#if isInRole 'admin'}}
+  <div id="admin-menu" class="container">
+    <div class="row">
+      <div class="col col24">
+        <a href="{{pathFor 'admin'}}">Admin</a> |
+<!--        <a href="">List Donations</a></h3> -->
+        <a href="{{pathFor 'listUsers'}}">List Users</a>
+<!--      <a href="">Email Exports</a> -->
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
   {{> alerta}}
 
   <header id="header" class="font-white">
     <div class="container">
-      <div class="row">
-        <div class="col col4">
-          <svg id="logo-nm" xmlns="http://www.w3.org/2000/svg" width="894.125" height="728.168" viewBox="0 0 894.125 728.168"><path fill="#fff" d="M535.117 0h-176.109v285.642l-171.388-285.642h-167.299v582.534h176.117v-252.48l172.148 252.48h156.953l172.149-252.48v252.48h176.116v-582.534h-167.291l-171.396 285.642v-285.642m-379.321 198.297v343.594h-94.832v-501.248h103.649l235.037 391.732v-391.732h94.825v501.249h-104.404l-234.275-343.595zm738.329 529.871h-894.125v-81.283h894.125v81.283z"/></svg>
+      <div class="row only-mobile">
+        <div class="col col24">
+          Novara Media Donation Processing<br />
+          {{#if notLoggedIn}}<a href="{{pathFor 'login'}}">Log In</a>{{/if}}
         </div>
-        <div class="col col14">
-          <h3>Novara Media Donation Processing</h3>
+      </div>
+      <div class="row only-desktop">
+        <div class="col col18">
+          Novara Media Donation Processing
         </div>
-        <div class="col col4">
-          <ul>
-            {{#if notLoggedIn}}
-              <li><a href="{{pathFor 'login'}}"><h3>Log In</h3></a></li>
-            {{/if}}
-          </ul>
+        <div class="col col3">
+          {{#if notLoggedIn}}
+            <a href="{{pathFor 'login'}}">Log In</a>
+          {{/if}}
+          &nbsp;
+        </div>
+        <div class="col col3 u-align-right">
+          <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" width="894.125" height="728.168" viewBox="0 0 894.125 728.168"><path fill="#fff" d="M535.117 0h-176.109v285.642l-171.388-285.642h-167.299v582.534h176.117v-252.48l172.148 252.48h156.953l172.149-252.48v252.48h176.116v-582.534h-167.291l-171.396 285.642v-285.642m-379.321 198.297v343.594h-94.832v-501.248h103.649l235.037 391.732v-391.732h94.825v501.249h-104.404l-234.275-343.595zm738.329 529.871h-894.125v-81.283h894.125v81.283z"/></svg>
         </div>
       </div>
     </div>
