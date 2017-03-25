@@ -18,7 +18,7 @@ Router.onBeforeAction(function () {
 
   }, {
 
-    only: ['admin', 'listUsers', 'singleUser',],
+    only: ['admin', 'listDonations', 'listUsers', 'singleUser',],
 
 });
 
@@ -27,6 +27,23 @@ Router.onBeforeAction(function () {
 Router.map(function() {
 
   this.route('admin', {
+    waitOn: function () {
+      return [
+        Meteor.subscribe('donations'),
+        Meteor.subscribe('subscriptions'),
+      ];
+    },
+
+    data: function () {
+      return {
+        donations: Donations.find({}, {sort: {createdAt: -1,},}),
+        subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
+      };
+    },
+  });
+
+  this.route('listDonations', {
+    path: '/admin/donations',
     waitOn: function () {
       return [
         Meteor.subscribe('donations'),

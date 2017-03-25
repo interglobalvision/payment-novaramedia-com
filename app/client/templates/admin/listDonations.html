@@ -1,13 +1,9 @@
-<template name="admin">
+<template name="listDonations">
   <div class="container">
     <div class="row padded-text">
       <div class="col col12">
         <h3>Donations</h3>
 
-        <h4>Total</h4>
-        <h2>£{{donationsTotal}}</h2>
-
-        <h4>Listed</h4>
         {{#each donations}}
           <div>
             £{{amount}} <em>{{timeSince createdAt}}</em>
@@ -18,10 +14,6 @@
       <div class="col col12">
         <h3>Subscriptions</h3>
 
-        <h4>Total</h4>
-        <h2>£{{subscriptionsTotal}} / month</h2>
-
-        <h4>Listed</h4>
         {{#each subscriptions}}
           <div>
             £{{amount}} <em>{{timeSince createdAt}}</em>
@@ -30,12 +22,5 @@
 
       </div>
     </div>
-<!--
-    <div class="row">
-      <div class="col col24">
-        <a href class="nuclear"><em>Nuke Option!!!</em></a>
-      </div>
-    </div>
--->
   </div>
 </template>
