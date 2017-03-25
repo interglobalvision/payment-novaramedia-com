@@ -1,0 +1,75 @@
+<template name="admin">
+  <div class="container">
+    <div class="row padded-text">
+      <div class="col col12">
+        oneoff donations in the last month
+      </div>
+      <div class="col col12">
+        new subscription in the last month
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col4 dashboard-value">
+        {{donationsNumberLastMonth}}
+      </div>
+      <div class="col col8 dashboard-value">
+        £{{donationsLastMonth}}
+      </div>
+      <div class="col col4 dashboard-value">
+        {{subscriptionsNumberLastMonth}}
+      </div>
+      <div class="col col8 dashboard-value">
+        £{{subscriptionsValueLastMonth}} / month
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col24">
+        <hr />
+      </div>
+    </div>
+
+    <div class="row padded-text">
+      <div class="col col6">
+        oneoff donations in the previous month
+      </div>
+      <div class="col col6">
+        total oneoff donations
+      </div>
+      <div class="col col6">
+        new subscriptions value in the previous month
+      </div>
+      <div class="col col6">
+        total value of subscriptions
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col6 dashboard-value">
+        £{{donationsValuePreviousMonth}}
+      </div>
+      <div class="col col6 dashboard-value">
+        £{{donationsTotal}}
+      </div>
+      <div class="col col6 dashboard-value">
+        £{{subscriptionsValuePreviousMonth}} / month
+      </div>
+      <div class="col col6 dashboard-value">
+        £{{subscriptionsTotal}} / month
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col24">
+        <hr />
+      </div>
+    </div>
+
+<!--
+    <div class="row">
+      <div class="col col24">
+        <a href class="nuclear"><em>Nuke Em!!!</em></a>
+      </div>
+    </div>
+-->
+  </div>
+</template>
