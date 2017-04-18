@@ -2,38 +2,72 @@
   <div class="container">
     <div class="row padded-text">
       <div class="col col12">
-        <h3>Donations</h3>
-
-        <h4>Total</h4>
-        <h2>£{{donationsTotal}}</h2>
-
-        <h4>Listed</h4>
-        {{#each donations}}
-          <div>
-            £{{amount}} <em>{{timeSince createdAt}}</em>
-          </div>
-        {{/each}}
-
+        <h4>oneoff donations in the last month</h4>
       </div>
       <div class="col col12">
-        <h3>Subscriptions</h3>
-
-        <h4>Total</h4>
-        <h2>£{{subscriptionsTotal}} / month</h2>
-
-        <h4>Listed</h4>
-        {{#each subscriptions}}
-          <div>
-            £{{amount}} <em>{{timeSince createdAt}}</em>
-          </div>
-        {{/each}}
-
+        <h4>new subscription in the last month</h4>
       </div>
     </div>
+    <div class="row">
+      <div class="col col4 dashboard-value">
+        <h4>{{donationsNumberLastMonth}}</h4>
+      </div>
+      <div class="col col8 dashboard-value">
+        <h4>£{{donationsLastMonth}}</h4>
+      </div>
+      <div class="col col4 dashboard-value">
+        <h4>{{subscriptionsNumberLastMonth}}</h4>
+      </div>
+      <div class="col col8 dashboard-value">
+        <h4>£{{subscriptionsValueLastMonth}} / month</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col24">
+        <hr />
+      </div>
+    </div>
+
+    <div class="row padded-text">
+      <div class="col col6">
+        <h4>oneoff donations in the previous month</h4>
+      </div>
+      <div class="col col6">
+        <h4>total oneoff donations</h4>
+      </div>
+      <div class="col col6">
+        <h4>new subscriptions value in the previous month</h4>
+      </div>
+      <div class="col col6">
+        <h4>total value of subscriptions</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col6 dashboard-value">
+        <h4>£{{donationsValuePreviousMonth}}</h4>
+      </div>
+      <div class="col col6 dashboard-value">
+        <h4>£{{donationsTotal}}</h4>
+      </div>
+      <div class="col col6 dashboard-value">
+        <h4>£{{subscriptionsValuePreviousMonth}} / month</h4>
+      </div>
+      <div class="col col6 dashboard-value">
+        <h4>£{{subscriptionsTotal}} / month</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col24">
+        <hr />
+      </div>
+    </div>
+
 <!--
     <div class="row">
       <div class="col col24">
-        <a href class="nuclear"><em>Nuke Option!!!</em></a>
+        <a href class="nuclear"><em>Nuke Em!!!</em></a>
       </div>
     </div>
 -->

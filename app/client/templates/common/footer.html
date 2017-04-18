@@ -14,7 +14,8 @@
           <li><a href="{{pathFor 'forgot'}}">Forgot Password</a></li>
           {{/if}}
           {{#if isInRole 'admin'}}
-          <li><a href="{{pathFor 'admin'}}">Admin</a></li>
+          <li><a href="{{pathFor 'admin'}}">Dashboard</a></li>
+          <li><a href="{{pathFor 'listDonations'}}">List Donations</a></li>
           <li><a href="{{pathFor 'listUsers'}}">List Users</a></li>
           {{/if}}
         </ul>

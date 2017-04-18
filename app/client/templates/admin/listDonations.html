@@ -1,0 +1,26 @@
+<template name="listDonations">
+  <div class="container">
+    <div class="row padded-text">
+      <div class="col col12">
+        <h3>Donations</h3>
+
+        {{#each donations}}
+          <div>
+            £{{amount}} <em>{{timeSince createdAt}}</em>
+          </div>
+        {{/each}}
+
+      </div>
+      <div class="col col12">
+        <h3>Subscriptions</h3>
+
+        {{#each subscriptions}}
+          <div>
+            £{{amount}} <em>{{timeSince createdAt}}</em>
+          </div>
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+</template>
