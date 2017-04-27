@@ -102,11 +102,11 @@ Template.admin.helpers({
     return DashboardData.donationsValuePreviousMonth();
   },
 
-  ifDonationsQuantityGrew() {
+  donationsQuantityGrowthClasses() {
     return DashboardData.growthClasses(DashboardData.donationsNumberLastMonth(), DashboardData.donationsNumberPreviousMonth());
   },
 
-  ifDonationsValueGrew() {
+  donationsQuantityValueClasses() {
     return DashboardData.growthClasses(DashboardData.donationsValueLastMonth(), DashboardData.donationsValuePreviousMonth());
   },
 
@@ -138,11 +138,11 @@ Template.admin.helpers({
     return DashboardData.subscriptionsValuePreviousMonth();
   },
 
-  ifSubscriptionsQuantityGrew() {
+  subscriptionsQuantityGrowthClasses() {
     return DashboardData.growthClasses(DashboardData.subscriptionsNumberLastMonth(), DashboardData.subscriptionsNumberPreviousMonth());
   },
 
-  ifSubscriptionsValueGrew() {
+  subscriptionsValueGrowthClasses() {
     return DashboardData.growthClasses(DashboardData.subscriptionsValueLastMonth(), DashboardData.subscriptionsValuePreviousMonth());
   },
 
