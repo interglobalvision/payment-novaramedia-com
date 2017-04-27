@@ -9,16 +9,16 @@
       </div>
     </div>
     <div class="row">
-      <div class="col col4 dashboard-value">
+      <div class="col col4 dashboard-value {{donationsQuantityGrowthClasses}}">
         <h4>{{donationsNumberLastMonth}}</h4>
       </div>
-      <div class="col col8 dashboard-value">
-        <h4>£{{donationsLastMonth}}</h4>
+      <div class="col col8 dashboard-value {{donationsQuantityValueClasses}}">
+        <h4>£{{donationsValueLastMonth}}</h4>
       </div>
-      <div class="col col4 dashboard-value">
+      <div class="col col4 dashboard-value {{subscriptionsQuantityGrowthClasses}}">
         <h4>{{subscriptionsNumberLastMonth}}</h4>
       </div>
-      <div class="col col8 dashboard-value">
+      <div class="col col8 dashboard-value {{subscriptionsValueGrowthClasses}}">
         <h4>£{{subscriptionsValueLastMonth}} / month</h4>
       </div>
     </div>
@@ -34,7 +34,7 @@
         <h4>oneoff donations in the previous month</h4>
       </div>
       <div class="col col6">
-        <h4>total oneoff donations</h4>
+        <h4>total value of oneoff donations</h4>
       </div>
       <div class="col col6">
         <h4>new subscriptions value in the previous month</h4>
@@ -48,7 +48,7 @@
         <h4>£{{donationsValuePreviousMonth}}</h4>
       </div>
       <div class="col col6 dashboard-value">
-        <h4>£{{donationsTotal}}</h4>
+        <h4>£{{donationsTotalValue}}</h4>
       </div>
       <div class="col col6 dashboard-value">
         <h4>£{{subscriptionsValuePreviousMonth}} / month</h4>

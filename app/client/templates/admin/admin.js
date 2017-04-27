@@ -1,101 +1,155 @@
-Template.admin.helpers({
+var DashboardData = {
+  // variables
+
+  lastMonthStart: moment().subtract(1, 'month').toDate(),
+  previousMonthStart: moment().subtract(2, 'month').toDate(),
+  previousMonthEnd: moment().subtract(1, 'month').subtract(1, 'day').toDate(),
+
+  // dontation functions
 
   donationsNumberLastMonth()  {
-    var start = moment().subtract(1, 'month').toDate();
-    var donations = Donations.find({createdAt: {$gte: start}});
-    var numberOfDonations = donations.count()
+    var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
-    return (0 + numberOfDonations);
+    return this.returnCursorCount(donations);
   },
 
-  donationsLastMonth()  {
-    var donationsLastMonth = 0;
-    var start = moment().subtract(1, 'month').toDate();
-    var donations = Donations.find({createdAt: {$gte: start}});
+  donationsValueLastMonth() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
-    donations.forEach(function(donations) {
-      donationsLastMonth += donations.amount;
-    });
-
-    return donationsLastMonth;
+    return this.returnValueOfCursorRecords(donations);
   },
 
-  donationsValuePreviousMonth()  {
-    var value = 0;
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var donations = Donations.find({createdAt: {$gte: start, $lt: end}});
+  donationsNumberPreviousMonth() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
-    donations.forEach(function(donations) {
-      value += donations.amount;
-    });
-
-    return value;
+    return this.returnCursorCount(donations);
   },
 
-  donationsNumberPreviousMonth()  {
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var donations = Donations.find({createdAt: {$gte: start, $lt: end}});
-    var numberOfDonations = donations.count()
+  donationsValuePreviousMonth() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
-    return (0 + numberOfDonations);
+    return this.returnValueOfCursorRecords(donations);
   },
 
-  donationsTotal()  {
-    var donationsTotal = 0;
-    var donations = Donations.find();
+  // subscription functions
 
-    donations.forEach(function(donations) {
-      donationsTotal += donations.amount;
-    });
+  subscriptionsNumberLastMonth() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
-    return donationsTotal;
+    return this.returnCursorCount(subscriptions);
   },
 
   subscriptionsValueLastMonth() {
-    var value = 0;
-    var start = moment().subtract(1, 'month').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start}});
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
-    subscriptions.forEach(function(subscriptions) {
-      value += subscriptions.amount;
-    });
-
-    return value;
+    return this.returnValueOfCursorRecords(subscriptions);
   },
 
-  subscriptionsNumberLastMonth()  {
-    var start = moment().subtract(1, 'month').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start}});
-    var numberOfSubscriptions = subscriptions.count();
+  subscriptionsNumberPreviousMonth() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
-    return (0 + numberOfSubscriptions);
+    return this.returnCursorCount(subscriptions);
   },
 
   subscriptionsValuePreviousMonth() {
-    var value = 0;
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start, $lt: end}});
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
-    subscriptions.forEach(function(subscriptions) {
-      value += subscriptions.amount;
+    return this.returnValueOfCursorRecords(subscriptions);
+  },
+
+  // utility functions
+
+  returnCursorCount(collectionCursor) {
+    var count = collectionCursor.count();
+
+    return 0 + count;
+  },
+
+  returnValueOfCursorRecords(collectionCursor) {
+    var value = 0;
+
+    collectionCursor.forEach(function(record) {
+      value += record.amount;
     });
 
     return value;
   },
 
+  growthClasses(lastMonth, previousMonth) {
+    if (lastMonth > previousMonth) {
+      return 'positive-growth';
+    } else {
+      return 'negative-growth';
+    }
+  },
+}
+
+Template.admin.helpers({
+
+  donationsNumberLastMonth()  {
+    return DashboardData.donationsNumberLastMonth();
+  },
+
+  donationsValueLastMonth()  {
+    return DashboardData.donationsValueLastMonth();
+  },
+
+  donationsNumberPreviousMonth()  {
+    return DashboardData.donationsNumberPreviousMonth();
+  },
+
+  donationsValuePreviousMonth()  {
+    return DashboardData.donationsValuePreviousMonth();
+  },
+
+  donationsQuantityGrowthClasses() {
+    return DashboardData.growthClasses(DashboardData.donationsNumberLastMonth(), DashboardData.donationsNumberPreviousMonth());
+  },
+
+  donationsQuantityValueClasses() {
+    return DashboardData.growthClasses(DashboardData.donationsValueLastMonth(), DashboardData.donationsValuePreviousMonth());
+  },
+
+  donationsTotal()  {
+    var donations = Donations.find();
+
+    return DashboardData.returnCursorCount(donations)
+  },
+
+  donationsTotalValue()  {
+    var donations = Donations.find();
+
+    return DashboardData.returnValueOfCursorRecords(donations)
+  },
+
+  subscriptionsNumberLastMonth()  {
+    return DashboardData.subscriptionsNumberLastMonth();
+  },
+
+  subscriptionsValueLastMonth() {
+    return DashboardData.subscriptionsValueLastMonth();
+  },
+
+  subscriptionsNumberPreviousMonth()  {
+    return DashboardData.subscriptionsNumberPreviousMonth();
+  },
+
+  subscriptionsValuePreviousMonth() {
+    return DashboardData.subscriptionsValuePreviousMonth();
+  },
+
+  subscriptionsQuantityGrowthClasses() {
+    return DashboardData.growthClasses(DashboardData.subscriptionsNumberLastMonth(), DashboardData.subscriptionsNumberPreviousMonth());
+  },
+
+  subscriptionsValueGrowthClasses() {
+    return DashboardData.growthClasses(DashboardData.subscriptionsValueLastMonth(), DashboardData.subscriptionsValuePreviousMonth());
+  },
+
   subscriptionsTotal() {
-    var subscriptionsTotal = 0;
     var subscriptions = Subscriptions.find();
 
-    subscriptions.forEach(function(subscriptions) {
-      subscriptionsTotal += subscriptions.amount;
-    });
-
-    return subscriptionsTotal;
-
+    return DashboardData.returnValueOfCursorRecords(subscriptions)
   },
 
 });
