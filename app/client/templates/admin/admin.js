@@ -1,45 +1,113 @@
-Template.admin.helpers({
+var DashboardData = {
+  // variables
 
-  donationsNumberLastMonth()  {
-    var start = moment().subtract(1, 'month').toDate();
-    var donations = Donations.find({createdAt: {$gte: start}});
-    var numberOfDonations = donations.count()
+  lastMonthStart: moment().subtract(1, 'month').toDate(),
+  previousMonthStart: moment().subtract(2, 'month').toDate(),
+  previousMonthEnd: moment().subtract(1, 'month').subtract(1, 'day').toDate(),
 
-    return (0 + numberOfDonations);
+  // dontation functions
+
+  donationsNumberLastMonth: function()  {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
+
+    return this.returnCursorCount(donations);
   },
 
-  donationsLastMonth()  {
-    var donationsLastMonth = 0;
-    var start = moment().subtract(1, 'month').toDate();
-    var donations = Donations.find({createdAt: {$gte: start}});
+  donationsValueLastMonth: function() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
-    donations.forEach(function(donations) {
-      donationsLastMonth += donations.amount;
-    });
-
-    return donationsLastMonth;
+    return this.returnValueOfCursorRecords(donations);
   },
 
-  donationsValuePreviousMonth()  {
+  donationsNumberPreviousMonth: function() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
+
+    return this.returnCursorCount(donations);
+  },
+
+  donationsValuePreviousMonth: function() {
+    var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
+
+    return this.returnValueOfCursorRecords(donations);
+  },
+
+  // subscription functions
+
+  subscriptionsNumberLastMonth: function() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
+
+    return this.returnCursorCount(subscriptions);
+  },
+
+  subscriptionsValueLastMonth: function() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
+
+    return this.returnValueOfCursorRecords(subscriptions);
+  },
+
+  subscriptionsNumberPreviousMonth: function() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
+
+    return this.returnCursorCount(subscriptions);
+  },
+
+  subscriptionsValuePreviousMonth: function() {
+    var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
+
+    return this.returnValueOfCursorRecords(subscriptions);
+  },
+
+  // utility functions
+
+  returnCursorCount: function(collectionCursor) {
+    var count = collectionCursor.count();
+
+    return 0 + count;
+  },
+
+  returnValueOfCursorRecords: function(collectionCursor) {
     var value = 0;
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var donations = Donations.find({createdAt: {$gte: start, $lt: end}});
 
-    donations.forEach(function(donations) {
-      value += donations.amount;
+    collectionCursor.forEach(function(record) {
+      value += record.amount;
     });
 
     return value;
   },
 
-  donationsNumberPreviousMonth()  {
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var donations = Donations.find({createdAt: {$gte: start, $lt: end}});
-    var numberOfDonations = donations.count()
+  growthClasses: function(lastMonth, previousMonth) {
+    if (lastMonth > previousMonth) {
+      return 'positive-growth';
+    } else {
+      return 'negative-growth';
+    }
+  },
+}
 
-    return (0 + numberOfDonations);
+Template.admin.helpers({
+
+  donationsNumberLastMonth()  {
+    return DashboardData.donationsNumberLastMonth();
+  },
+
+  donationsValueLastMonth()  {
+    return DashboardData.donationsValueLastMonth();
+  },
+
+  donationsNumberPreviousMonth()  {
+    return DashboardData.donationsNumberPreviousMonth();
+  },
+
+  donationsValuePreviousMonth()  {
+    return DashboardData.donationsValuePreviousMonth();
+  },
+
+  ifDonationsQuantityGrew() {
+    return DashboardData.growthClasses(DashboardData.donationsNumberLastMonth(), DashboardData.donationsNumberPreviousMonth());
+  },
+
+  ifDonationsValueGrew() {
+    return DashboardData.growthClasses(DashboardData.donationsValueLastMonth(), DashboardData.donationsValuePreviousMonth());
   },
 
   donationsTotal()  {
@@ -53,37 +121,28 @@ Template.admin.helpers({
     return donationsTotal;
   },
 
-  subscriptionsValueLastMonth() {
-    var value = 0;
-    var start = moment().subtract(1, 'month').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start}});
-
-    subscriptions.forEach(function(subscriptions) {
-      value += subscriptions.amount;
-    });
-
-    return value;
+  subscriptionsNumberLastMonth()  {
+    return DashboardData.subscriptionsNumberLastMonth();
   },
 
-  subscriptionsNumberLastMonth()  {
-    var start = moment().subtract(1, 'month').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start}});
-    var numberOfSubscriptions = subscriptions.count();
+  subscriptionsValueLastMonth() {
+    return DashboardData.subscriptionsValueLastMonth();
+  },
 
-    return (0 + numberOfSubscriptions);
+  subscriptionsNumberPreviousMonth()  {
+    return DashboardData.subscriptionsNumberPreviousMonth();
   },
 
   subscriptionsValuePreviousMonth() {
-    var value = 0;
-    var start = moment().subtract(2, 'month').toDate();
-    var end = moment().subtract(1, 'month').subtract(1, 'day').toDate();
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start, $lt: end}});
+    return DashboardData.subscriptionsValuePreviousMonth();
+  },
 
-    subscriptions.forEach(function(subscriptions) {
-      value += subscriptions.amount;
-    });
+  ifSubscriptionsQuantityGrew() {
+    return DashboardData.growthClasses(DashboardData.subscriptionsNumberLastMonth(), DashboardData.subscriptionsNumberPreviousMonth());
+  },
 
-    return value;
+  ifSubscriptionsValueGrew() {
+    return DashboardData.growthClasses(DashboardData.subscriptionsValueLastMonth(), DashboardData.subscriptionsValuePreviousMonth());
   },
 
   subscriptionsTotal() {
@@ -95,7 +154,6 @@ Template.admin.helpers({
     });
 
     return subscriptionsTotal;
-
   },
 
 });
