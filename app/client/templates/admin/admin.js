@@ -7,25 +7,25 @@ var DashboardData = {
 
   // dontation functions
 
-  donationsNumberLastMonth: function()  {
+  donationsNumberLastMonth()  {
     var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
     return this.returnCursorCount(donations);
   },
 
-  donationsValueLastMonth: function() {
+  donationsValueLastMonth() {
     var donations = Donations.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
     return this.returnValueOfCursorRecords(donations);
   },
 
-  donationsNumberPreviousMonth: function() {
+  donationsNumberPreviousMonth() {
     var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
     return this.returnCursorCount(donations);
   },
 
-  donationsValuePreviousMonth: function() {
+  donationsValuePreviousMonth() {
     var donations = Donations.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
     return this.returnValueOfCursorRecords(donations);
@@ -33,25 +33,25 @@ var DashboardData = {
 
   // subscription functions
 
-  subscriptionsNumberLastMonth: function() {
+  subscriptionsNumberLastMonth() {
     var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
     return this.returnCursorCount(subscriptions);
   },
 
-  subscriptionsValueLastMonth: function() {
+  subscriptionsValueLastMonth() {
     var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.lastMonthStart}});
 
     return this.returnValueOfCursorRecords(subscriptions);
   },
 
-  subscriptionsNumberPreviousMonth: function() {
+  subscriptionsNumberPreviousMonth() {
     var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
     return this.returnCursorCount(subscriptions);
   },
 
-  subscriptionsValuePreviousMonth: function() {
+  subscriptionsValuePreviousMonth() {
     var subscriptions = Subscriptions.find({createdAt: {$gte: DashboardData.previousMonthStart, $lt: DashboardData.previousMonthEnd}});
 
     return this.returnValueOfCursorRecords(subscriptions);
@@ -59,13 +59,13 @@ var DashboardData = {
 
   // utility functions
 
-  returnCursorCount: function(collectionCursor) {
+  returnCursorCount(collectionCursor) {
     var count = collectionCursor.count();
 
     return 0 + count;
   },
 
-  returnValueOfCursorRecords: function(collectionCursor) {
+  returnValueOfCursorRecords(collectionCursor) {
     var value = 0;
 
     collectionCursor.forEach(function(record) {
@@ -75,7 +75,7 @@ var DashboardData = {
     return value;
   },
 
-  growthClasses: function(lastMonth, previousMonth) {
+  growthClasses(lastMonth, previousMonth) {
     if (lastMonth > previousMonth) {
       return 'positive-growth';
     } else {
