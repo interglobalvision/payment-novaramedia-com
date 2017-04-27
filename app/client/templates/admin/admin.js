@@ -111,14 +111,15 @@ Template.admin.helpers({
   },
 
   donationsTotal()  {
-    var donationsTotal = 0;
     var donations = Donations.find();
 
-    donations.forEach(function(donations) {
-      donationsTotal += donations.amount;
-    });
+    return DashboardData.returnCursorCount(donations)
+  },
 
-    return donationsTotal;
+  donationsTotalValue()  {
+    var donations = Donations.find();
+
+    return DashboardData.returnValueOfCursorRecords(donations)
   },
 
   subscriptionsNumberLastMonth()  {
@@ -146,14 +147,9 @@ Template.admin.helpers({
   },
 
   subscriptionsTotal() {
-    var subscriptionsTotal = 0;
     var subscriptions = Subscriptions.find();
 
-    subscriptions.forEach(function(subscriptions) {
-      subscriptionsTotal += subscriptions.amount;
-    });
-
-    return subscriptionsTotal;
+    return DashboardData.returnValueOfCursorRecords(subscriptions)
   },
 
 });
