@@ -1,0 +1,1 @@
+Analytics = new Meteor.Collection('analytics');
