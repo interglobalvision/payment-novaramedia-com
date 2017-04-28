@@ -1,3 +1,5 @@
+// functions
+
 function saveFundraiserAnalyticData() {
 
   var now = moment();
@@ -26,10 +28,30 @@ function saveFundraiserAnalyticData() {
     'percent': percent,
   };
 
-  Analytics.insert({
-    'time': now,
+  var record = {
+    'createdAt': now.toDate(),
     'datatype': 'fundraiser',
     'data': data,
-  });
+  };
 
+  console.log('analytics record', record);
+
+  Analytics.insert(record);
 };
+
+// cron jobs
+
+SyncedCron.add({
+  name: 'analyticsFundraiser',
+  schedule: function(parser) {
+    return parser.text(Meteor.settings.goal.updateAnalyticsFrequency);
+  },
+
+  job: function() {
+    return saveFundraiserAnalyticData();
+  },
+});
+
+Meteor.startup(function() {
+  SyncedCron.start();
+});
