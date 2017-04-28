@@ -1,35 +1,27 @@
-Meteor.methods({
+if (Meteor.settings.goal.enableApi === true) {
 
-  apiGoal: function() {
-    var start = moment(Meteor.settings.goal.startDate);
-    var end = moment(Meteor.settings.goal.endDate);
+  Meteor.methods({
 
-    var subscriptions = Subscriptions.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
-    var subscriptionsTotal = 0;
+    apiGoal: function() {
+      var end = moment(Meteor.settings.goal.endDate);
+      var latestFundraiserAnalyticsRecord = Analytics.findOne({datatype: 'fundraiser',}, {sort: {createdAt: -1,},});
+      var total = 0;
+      var percent = 0;
 
-    console.log(subscriptions);
+      if (latestFundraiserAnalyticsRecord) {
+        total = latestFundraiserAnalyticsRecord.data.total;
+        percent = latestFundraiserAnalyticsRecord.data.percent;
+      }
 
-    subscriptions.forEach(function (post) {
-      subscriptionsTotal += post.amount;
-    });
+      return {
+        'total': total,
+        'percent': percent,
+        'timeLeft': end.fromNow(),
+        'timeLeftValue': end.fromNow(true),
+      };
 
-    var donations = Donations.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
-    var donationsTotal = 0;
+    },
 
-    donations.forEach(function (post) {
-      donationsTotal += post.amount;
-    });
+  });
 
-    var total = subscriptionsTotal + donationsTotal + Meteor.settings.goal.externalDonationsAmount;
-    var percent = total / Meteor.settings.goal.goalAmount;
-
-    return {
-      'total': total,
-      'percent': percent,
-      'timeLeft': end.fromNow(),
-      'timeLeftValue': end.fromNow(true),
-    };
-
-  },
-
-});
+};
