@@ -1,0 +1,32 @@
+<template name="listEmails">
+  <div class="container">
+    <div class="row padded-text">
+      <div class="col col24">
+        <h3>Subscribers</h3>
+        <div class="email-export">
+          {{#each subscriptions}}
+            <div>
+              {{displayEmail user}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="col col24">
+        <h3>Expireds</h3>
+        {{#each users}}
+          <div>
+            <a href="/admin/user/{{ _id }}">{{displayEmail _id}}</a>
+          </div>
+        {{/each}}
+      </div>
+      <div class="col col24">
+        <h3>Everyone</h3>
+        {{#each users}}
+          <div>
+            <a href="/admin/user/{{ _id }}">{{displayEmail _id}}</a>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

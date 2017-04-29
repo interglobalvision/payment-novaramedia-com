@@ -59,6 +59,23 @@ Router.map(function() {
     },
   });
 
+  this.route('listEmails', {
+    path: '/admin/emails',
+    waitOn: function () {
+      return [
+        Meteor.subscribe('subscriptions'),
+        Meteor.subscribe('users'),
+      ];
+    },
+
+    data: function () {
+      return {
+        subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
+        users: Meteor.users.find(),
+      };
+    },
+  });
+
   this.route('listUsers', {
     path: '/admin/users',
     waitOn: function () {
