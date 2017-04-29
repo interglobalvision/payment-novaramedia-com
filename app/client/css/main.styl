@@ -28,6 +28,10 @@
   margin-top: $margin-basic
   margin-bottom: $margin-basic
 
+.small-padded-text
+  margin-top: $margin-small
+  margin-bottom: $margin-small
+
 hr
   height: 3px
   background: black
@@ -56,6 +60,12 @@ hr
 .positive-growth
   background-color: limegreen
 
+// EXPORT EMAILS
+
+.email-export
+  max-height: 10vh
+  overflow: scroll
+
 @media screen and (max-width: ($col * $cols)+($gutter * $cols))
 
   $gutter = 16px
@@ -70,6 +80,10 @@ hr
   .padded-text
     margin-top: $margin-basic
     margin-bottom: $margin-basic
+
+  .small-padded-text
+    margin-top: $margin-small
+    margin-bottom: $margin-small
 
 @media screen and (max-width: 1152px)
 
@@ -86,6 +100,10 @@ hr
     margin-top: $margin-basic
     margin-bottom: $margin-basic
 
+  .small-padded-text
+    margin-top: $margin-small
+    margin-bottom: $margin-small
+
 @media screen and (max-width: 912px)
 
   $gutter = 8px
@@ -100,6 +118,10 @@ hr
   .padded-text
     margin-top: $margin-basic
     margin-bottom: $margin-basic
+
+  .small-padded-text
+    margin-top: $margin-small
+    margin-bottom: $margin-small
 
 @media screen and (max-width: 696px)
 
@@ -120,6 +142,10 @@ hr
   .padded-text
     margin-top: $margin-basic
     margin-bottom: $margin-basic
+
+  .small-padded-text
+    margin-top: $margin-small
+    margin-bottom: $margin-small
 
   .only-mobile
     display: initial
