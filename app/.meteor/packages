@@ -12,7 +12,6 @@ accounts-ui
 momentjs:moment
 stylus
 tap:i18n
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -31,3 +30,6 @@ alanning:roles
 mrgalaxy:stripe
 force-ssl
 meteorhacks:kadira
+standard-minifier-css
+standard-minifier-js
+percolate:synced-cron

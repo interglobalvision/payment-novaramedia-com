@@ -1,26 +1,27 @@
-Meteor.methods({
+if (Meteor.settings.fundraiser.enable === true) {
 
-  apiTotal: function() {
-    var subscriptions = Subscriptions.find();
-    var subscriptionsTotal = 0;
+  Meteor.methods({
 
-    subscriptions.forEach(function (post) {
-      subscriptionsTotal += post.amount;
-    });
+    apiGoal: function() {
+      var end = moment(Meteor.settings.fundraiser.endDate);
+      var latestFundraiserAnalyticsRecord = Analytics.findOne({datatype: 'fundraiser',}, {sort: {createdAt: -1,},});
+      var total = 0;
+      var percent = 0;
 
-//     console.log('Total in subs', subscriptionsTotal);
+      if (latestFundraiserAnalyticsRecord) {
+        total = latestFundraiserAnalyticsRecord.data.total;
+        percent = latestFundraiserAnalyticsRecord.data.percent;
+      }
 
-    var donations = Donations.find();
-    var donationsTotal = 0;
+      return {
+        'total': total,
+        'percent': percent,
+        'timeLeft': end.fromNow(),
+        'timeLeftValue': end.fromNow(true),
+      };
 
-    donations.forEach(function (post) {
-      donationsTotal += post.amount;
-    });
+    },
 
-//     console.log('Total in donations', donationsTotal);
+  });
 
-    return subscriptionsTotal + donationsTotal;
-
-  },
-
-});
+};
