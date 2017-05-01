@@ -1,0 +1,19 @@
+{
+  "name": "payment-novaramedia-com",
+  "version": "0.8.0",
+  "description": "Process donations and subscriptions for Novara Media",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novaramedia/payment-novaramedia-com.git"
+  },
+  "author": "Novara Media",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/novaramedia/payment-novaramedia-com/issues"
+  },
+  "homepage": "https://github.com/novaramedia/payment-novaramedia-com#readme"
+}
