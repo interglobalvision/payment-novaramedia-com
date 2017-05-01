@@ -34,8 +34,6 @@ function saveFundraiserAnalyticData() {
     'data': data,
   };
 
-  console.log('analytics record', record);
-
   Analytics.insert(record);
 };
 
