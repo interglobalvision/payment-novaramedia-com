@@ -2,9 +2,13 @@
 
 function saveFundraiserAnalyticData() {
 
+  if (Meteor.settings.fundraiser.enable !== true) {
+    return;
+  }
+
   var now = moment();
-  var start = moment(Meteor.settings.goal.startDate);
-  var end = moment(Meteor.settings.goal.endDate);
+  var start = moment(Meteor.settings.fundraiser.startDate);
+  var end = moment(Meteor.settings.fundraiser.endDate);
 
   var subscriptions = Subscriptions.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
   var subscriptionsTotal = 0;
@@ -20,8 +24,8 @@ function saveFundraiserAnalyticData() {
     donationsTotal += post.amount;
   });
 
-  var total = subscriptionsTotal + donationsTotal + Meteor.settings.goal.externalDonationsAmount;
-  var percent = total / Meteor.settings.goal.goalAmount;
+  var total = subscriptionsTotal + donationsTotal + Meteor.settings.fundraiser.externalDonationsAmount;
+  var percent = total / Meteor.settings.fundraiser.goalAmount;
 
   var data = {
     'total': total,
@@ -39,16 +43,20 @@ function saveFundraiserAnalyticData() {
 
 // cron jobs
 
-SyncedCron.add({
-  name: 'analyticsFundraiser',
-  schedule: function(parser) {
-    return parser.text(Meteor.settings.goal.updateAnalyticsFrequency);
-  },
+if (Meteor.settings.fundraiser.enable === true) {
 
-  job: function() {
-    return saveFundraiserAnalyticData();
-  },
-});
+  SyncedCron.add({
+    name: 'analyticsFundraiser',
+    schedule: function(parser) {
+      return parser.text(Meteor.settings.fundraiser.updateAnalyticsFrequency);
+    },
+
+    job: function() {
+      return saveFundraiserAnalyticData();
+    },
+  });
+
+}
 
 Meteor.startup(function() {
   SyncedCron.start();

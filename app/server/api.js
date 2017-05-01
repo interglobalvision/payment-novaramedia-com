@@ -1,4 +1,4 @@
-if (Meteor.settings.goal.enableApi === true) {
+if (Meteor.settings.fundraiser.enable === true) {
 
   Router.route('/api/goal', function(){
     this.response.statusCode = 200;

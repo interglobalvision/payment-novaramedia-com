@@ -1,9 +1,9 @@
-if (Meteor.settings.goal.enableApi === true) {
+if (Meteor.settings.fundraiser.enable === true) {
 
   Meteor.methods({
 
     apiGoal: function() {
-      var end = moment(Meteor.settings.goal.endDate);
+      var end = moment(Meteor.settings.fundraiser.endDate);
       var latestFundraiserAnalyticsRecord = Analytics.findOne({datatype: 'fundraiser',}, {sort: {createdAt: -1,},});
       var total = 0;
       var percent = 0;
