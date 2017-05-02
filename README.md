@@ -6,11 +6,15 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 ### Dev
 
-Has optional gulpfile in project root than can lint
+Has optional gulpfile in project root than can lint (needs rewriting itself)
+
+Requires settings.json to run. Copy the example to the app folder, rename `settings.json` and run meteor with `meteor --settings settings.json`
+
+In production using the last version of [mupx](https://www.npmjs.com/package/mupx) for deployment. But this should be migrated to [mup](https://github.com/zodern/meteor-up) in the future
 
 ---
 
-###TODO
+### TODO
 
 - One-off route. A form to make a one off payment. Stripe tokenize and make payment on server. Save only reference to payments in DB ✔
 - Recurring route. As one-off but before creating subscription with Stripe token create user and save sub in DB ✔
@@ -28,20 +32,30 @@ Has optional gulpfile in project root than can lint
 - Fix try/catch failures ✔
 - Routing once logged in ✔
 
-####v0.8
+#### v0.8
 
 - Export subscribers data for Mailchimp ✔
 - Basic admin user functions: List, check Stripe status, delete orphaned subscription records and delete accounts (with serious warnings) ✔
 
-####v0.9
+#### v0.9
 
 - Registered user card handling for new subscriptions and expired cards
 
-####v1.0
+#### v1.0
 
 - Failed subscription payment webhook handling. Notifies user of failure and deletes subscription from database.
 - Basic analytics dashboard: total subscribers, average subscription value, % falloff
 
-####v1.1
+#### v1.1
 
 - Sync subscribers to Mailchimp via API
+- HTML formatted emails
+
+#### v1.2
+
+- Expansion of analytics gathering
+- Extended analytics dashboard
+
+#### v2.0?
+
+- Rewrite views in React
