@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/novaramedia/payment-novaramedia-com/issues"
   },
-  "homepage": "https://github.com/novaramedia/payment-novaramedia-com#readme"
+  "homepage": "https://github.com/novaramedia/payment-novaramedia-com#readme",
+  "dependencies": {
+    "meteor-node-stubs": "^0.4.1",
+    "stripe": "^6.3.0"
+  }
 }
