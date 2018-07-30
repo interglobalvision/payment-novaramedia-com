@@ -31,6 +31,14 @@ Router.route('/api/stripeWebhook', function(event) {
 
   //>>> TODO: Call stripe.webhooks.constructEvent with body, headers.stripe-signature & Meteor.settings.stripe.endpointSecret to verify event is from Stripe. Use returned event as data for switch below
 
+  var event = Meteor.call('stripeConstructEvent', JSON.stringify(body), headers['stripe-signature'], Meteor.settings.stripe.endpointSecret);
+
+  if (!event) {
+    throw new Meteor.Error('stripe-construct-event-failed', 'Sorry Stripe failed to construct the event.');
+  }
+
+  console.log(event);
+
   //>>> Switch event type for different handling
 
   switch(body.type) {

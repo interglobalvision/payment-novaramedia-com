@@ -13,6 +13,8 @@ var syncSubscriptionsCancel = Meteor.wrapAsync(stripe.customers.cancelSubscripti
 var syncCustomerRetrieve = Meteor.wrapAsync(stripe.customers.retrieve, stripe.customers);
 var syncCardRetrieve = Meteor.wrapAsync(stripe.customers.retrieveCard, stripe.customers);
 
+var syncConstructEvent = Meteor.wrapAsync(stripe.webhooks.constructEvent, stripe.webhooks);
+
 Meteor.methods({
 
   stripeCreateCharge: function(source, amount) {
@@ -173,6 +175,19 @@ Meteor.methods({
 
     return stripeDeleteCustomer;
 
+  },
+
+  stripeConstructEvent: function(body, headerSignature, secret) {
+    try {
+      var event = syncConstructEvent(body, headerSignature, secret);
+    } catch(error) {
+
+      console.log(error);
+
+      throw new Meteor.Error('method-stripe-construct-event-failed', 'Sorry Stripe failed to construct the event.');
+    }
+
+    return event;
   },
 
 });
