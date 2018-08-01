@@ -61,6 +61,7 @@ localstorage@1.0.11
 logging@1.0.14
 meteor@1.1.16
 meteor-base@1.0.4
+meteorhacks:picker@1.0.3
 meteorspark:util@0.2.0
 meteortoys:toykit@0.8.7
 minifier-css@1.1.13
