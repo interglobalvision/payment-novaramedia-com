@@ -181,9 +181,6 @@ Meteor.methods({
     try {
       var event = syncConstructEvent(body, headerSignature, secret);
     } catch(error) {
-
-      console.log(error);
-
       throw new Meteor.Error('method-stripe-construct-event-failed', 'Sorry Stripe failed to construct the event.');
     }
 
