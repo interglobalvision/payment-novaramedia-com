@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col col24 small-padded-text">
-        <h3>Subscribers</h3>
+        <h3>Subscribers ({{displayCount subscriptions}})</h3>
         <div class="email-export">
           {{#each subscriptions}}
             <div>{{displayEmail user}}</div>
@@ -12,7 +12,7 @@
     </div>
     <div class="row">
       <div class="col col24 small-padded-text">
-        <h3>Expireds</h3>
+        <h3>Expireds ({{displayCount expiredUsers}})</h3>
         <div class="email-export">
           {{#each expiredUsers}}
             <div>{{displayEmail _id}}</div>
@@ -22,7 +22,7 @@
     </div>
     <div class="row">
       <div class="col col24 small-padded-text">
-        <h3>Everyone</h3>
+        <h3>Everyone ({{displayCount users}})</h3>
         <div class="email-export">
           {{#each users}}
             <div>{{displayEmail _id}}</div>

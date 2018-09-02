@@ -10,12 +10,6 @@ Template.listEmails.events({
 });
 
 Template.listEmails.helpers({
-  displayEmail: function(userId) {
-    var user = Meteor.users.findOne(userId);
-
-    return user.emails[0].address;
-  },
-
   expiredUsers: function () {
 
     var expiredUsers = Meteor.users.find({}).fetch().filter(function (doc) {

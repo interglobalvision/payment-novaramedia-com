@@ -112,4 +112,21 @@ Router.map(function() {
     },
   });
 
+  this.route('tools', {
+    path: '/admin/tools',
+    waitOn: function () {
+      return [
+        Meteor.subscribe('subscriptions'),
+        Meteor.subscribe('users'),
+      ];
+    },
+
+    data: function () {
+      return {
+        subscriptions: Subscriptions.find({}, {sort: {createdAt: -1,},}),
+        users: Meteor.users.find({}, {sort: {createdAt: -1,},}),
+      };
+    },
+  });
+
 });
