@@ -69,7 +69,7 @@ var DashboardData = {
     var value = 0;
 
     collectionCursor.forEach(function(record) {
-      value += record.amount;
+      value += parseInt(record.amount);
     });
 
     return value;
