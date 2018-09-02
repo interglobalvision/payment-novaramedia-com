@@ -152,6 +152,29 @@ Template.admin.helpers({
     return DashboardData.returnValueOfCursorRecords(subscriptions)
   },
 
+  subscriptionsMean() {
+    var subscriptions = Subscriptions.find();
+
+    var mean = DashboardData.returnValueOfCursorRecords(subscriptions) / DashboardData.returnCursorCount(subscriptions);
+
+    return mean.toFixed(2);
+  },
+
+  subscriptionsMedian() {
+    var subscriptions = Subscriptions.find().fetch();
+
+    var subscriptionsArray = _.map(subscriptions, function(subscription) {
+      return subscription.amount;
+    });
+
+    var arr = subscriptionsArray.slice(0);
+    var middle = (arr.length + 1) / 2;
+    var sorted = arr.sort();
+    var median = (sorted.length % 2) ? sorted[middle - 1] : (sorted[middle - 1.5] + sorted[middle - 0.5]) / 2
+
+    return median.toFixed(2);
+  }
+
 });
 
 Template.admin.events({
