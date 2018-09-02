@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row padded-text">
       <div class="col col12">
-        <h3>Subscriber Users</h3>
+        <h3>Subscriber Users ({{displayCount subscriptions}})</h3>
         {{#each subscriptions}}
           <div>
             <a href="/admin/user/{{ user }}">{{displayEmail user}}</a>
@@ -10,7 +10,7 @@
         {{/each}}
       </div>
       <div class="col col12">
-        <h3>All Users</h3>
+        <h3>All Users ({{displayCount users}})</h3>
         {{#each users}}
           <div>
             <a href="/admin/user/{{ _id }}">{{displayEmail _id}}</a>
