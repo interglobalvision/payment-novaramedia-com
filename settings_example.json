@@ -8,6 +8,7 @@
 
   "fundraiser": {
     "enable": true,
+    "subsraiser": false,
     "startDate": "2017-04-01T00:00:01+00:00",
     "endDate": "2017-05-01T23:59:59+00:00",
     "goalAmount": 2500,
