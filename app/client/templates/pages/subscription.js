@@ -34,6 +34,11 @@ Template.subscription.events({
           if (err) {
             console.log(err);
             Alerta.error(err.reason);
+
+            if (err.error === 'account-exists') {
+              Router.go('/login');
+            }
+
           } else {
             Router.go('/thanks');
           }
