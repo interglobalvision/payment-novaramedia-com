@@ -15,6 +15,7 @@ if (Meteor.settings.fundraiser.enable === true) {
 
       return {
         'total': total,
+        'goal': Meteor.settings.fundraiser.goalAmount,
         'percent': percent,
         'timeLeft': end.fromNow(),
         'timeLeftValue': end.fromNow(true),
