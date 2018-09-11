@@ -1,5 +1,6 @@
 import stripePackage from 'stripe';
 const stripe = stripePackage(Meteor.settings.stripe.secret);
+stripe.setApiVersion('2018-07-27');
 
 var syncChargesCreate = Meteor.wrapAsync(stripe.charges.create, stripe.charges);
 
@@ -14,6 +15,7 @@ var syncCustomerRetrieve = Meteor.wrapAsync(stripe.customers.retrieve, stripe.cu
 var syncCardRetrieve = Meteor.wrapAsync(stripe.customers.retrieveCard, stripe.customers);
 
 var syncConstructEvent = Meteor.wrapAsync(stripe.webhooks.constructEvent, stripe.webhooks);
+var syncRetriveEvent = Meteor.wrapAsync(stripe.events.retrieve, stripe.events);
 
 Meteor.methods({
 
@@ -178,13 +180,28 @@ Meteor.methods({
   },
 
   stripeConstructEvent: function(body, headerSignature, secret) {
+    console.log('Constructing event');
+
     try {
       var event = syncConstructEvent(body, headerSignature, secret);
+      console.log('method return event', event)
+      return event;
     } catch(error) {
+      console.warn('syncConstructEvent error', error);
       throw new Meteor.Error('method-stripe-construct-event-failed', 'Sorry Stripe failed to construct the event.');
     }
 
-    return event;
   },
+
+  stripeRetriveEvent: function(eventId) {
+    check(eventId, String);
+
+    try {
+      return syncRetriveEvent(eventId);
+    } catch(error) {
+      console.warn('syncRetriveEvent error', error);
+      throw new Meteor.Error('method-stripe-retrive-event-failed', 'Sorry Stripe failed to retrive the event.');
+    }
+  }
 
 });
