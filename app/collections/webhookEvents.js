@@ -1,0 +1,1 @@
+WebhookEvents = new Meteor.Collection('webhookEvents');
