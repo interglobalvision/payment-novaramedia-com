@@ -27,8 +27,9 @@ spacebars
 check
 msavin:mongol
 alanning:roles
-mrgalaxy:stripe
 force-ssl
 standard-minifier-css
 standard-minifier-js
 percolate:synced-cron
+ecmascript
+meteorhacks:picker

@@ -3,7 +3,8 @@
   "admin_password": "",
 
   "stripe": {
-    "secret": ""
+    "secret": "",
+    "endpointSecret": ""
   },
 
   "fundraiser": {

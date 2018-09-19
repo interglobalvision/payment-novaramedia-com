@@ -1,16 +1,21 @@
-var Stripe = StripeAPI(Meteor.settings.stripe.secret);
+import stripePackage from 'stripe';
+const stripe = stripePackage(Meteor.settings.stripe.secret);
+stripe.setApiVersion('2018-07-27');
 
-var syncChargesCreate = Meteor.wrapAsync(Stripe.charges.create, Stripe.charges);
+var syncChargesCreate = Meteor.wrapAsync(stripe.charges.create, stripe.charges);
 
-var syncCustomersCreate = Meteor.wrapAsync(Stripe.customers.create, Stripe.customers);
-var syncCustomersDelete = Meteor.wrapAsync(Stripe.customers.del, Stripe.customers);
+var syncCustomersCreate = Meteor.wrapAsync(stripe.customers.create, stripe.customers);
+var syncCustomersDelete = Meteor.wrapAsync(stripe.customers.del, stripe.customers);
 
-var syncSubscriptionsCreate = Meteor.wrapAsync(Stripe.customers.createSubscription, Stripe.customers);
-var syncSubscriptionsUpdate = Meteor.wrapAsync(Stripe.customers.updateSubscription, Stripe.customers);
-var syncSubscriptionsCancel = Meteor.wrapAsync(Stripe.customers.cancelSubscription, Stripe.customers);
+var syncSubscriptionsCreate = Meteor.wrapAsync(stripe.customers.createSubscription, stripe.customers);
+var syncSubscriptionsUpdate = Meteor.wrapAsync(stripe.customers.updateSubscription, stripe.customers);
+var syncSubscriptionsCancel = Meteor.wrapAsync(stripe.customers.cancelSubscription, stripe.customers);
 
-var syncCustomerRetrieve = Meteor.wrapAsync(Stripe.customers.retrieve, Stripe.customers);
-var syncCardRetrieve = Meteor.wrapAsync(Stripe.customers.retrieveCard, Stripe.customers);
+var syncCustomerRetrieve = Meteor.wrapAsync(stripe.customers.retrieve, stripe.customers);
+var syncCardRetrieve = Meteor.wrapAsync(stripe.customers.retrieveCard, stripe.customers);
+
+var syncConstructEvent = Meteor.wrapAsync(stripe.webhooks.constructEvent, stripe.webhooks);
+var syncRetriveEvent = Meteor.wrapAsync(stripe.events.retrieve, stripe.events);
 
 Meteor.methods({
 
@@ -33,13 +38,13 @@ Meteor.methods({
 
     } catch(error) {
 /*
-      console.log('Stripe charge create error:', error.type);
-      console.log('Stripe charge create error:', error.message);
+      console.log('stripe charge create error:', error.type);
+      console.log('stripe charge create error:', error.message);
 */
-      throw new Meteor.Error('stripe-charge-creation-failed', 'Sorry Stripe failed to create the charge. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-charge-creation-failed', 'Sorry stripe failed to create the charge. This was because: ' + error.message);
     }
 
-//     console.log('New Stripe charge:', charge);
+//     console.log('New stripe charge:', charge);
 
     return charge;
 
@@ -60,13 +65,13 @@ Meteor.methods({
 
     } catch(error) {
 /*
-      console.log('Stripe subscription create error:', error.type);
-      console.log('Stripe subscription create error:', error.message);
+      console.log('stripe subscription create error:', error.type);
+      console.log('stripe subscription create error:', error.message);
 */
-      throw new Meteor.Error('stripe-subscription-creation-failed', 'Sorry Stripe failed to create the subscription. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-subscription-creation-failed', 'Sorry stripe failed to create the subscription. This was because: ' + error.message);
     }
 
-//     console.log('New Stripe subscription', stripeSubscription);
+//     console.log('New stripe subscription', stripeSubscription);
 
     return stripeSubscription;
 
@@ -83,10 +88,10 @@ Meteor.methods({
       });
     } catch(error) {
 /*
-      console.log('Stripe subscription update error:', error.type);
-      console.log('Stripe subscription update error:', error.message);
+      console.log('stripe subscription update error:', error.type);
+      console.log('stripe subscription update error:', error.message);
 */
-      throw new Meteor.Error('stripe-subscription-update-failed', 'Sorry Stripe failed to edit the subscription. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-subscription-update-failed', 'Sorry stripe failed to edit the subscription. This was because: ' + error.message);
     }
 
     return stripeUpdateSubscription;
@@ -101,10 +106,10 @@ Meteor.methods({
       var stripeCancelSubscription = syncSubscriptionsCancel(stripeCustomerId ,stripeSubscriptionId);
     } catch(error) {
 /*
-      console.log('Stripe subscription cancel error:', error.type);
-      console.log('Stripe subscription cancel error:', error.message);
+      console.log('stripe subscription cancel error:', error.type);
+      console.log('stripe subscription cancel error:', error.message);
 */
-      throw new Meteor.Error('stripe-subscription-cancel-failed', 'Sorry Stripe failed to cancel the subscription. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-subscription-cancel-failed', 'Sorry stripe failed to cancel the subscription. This was because: ' + error.message);
     }
 
     return stripeCancelSubscription;
@@ -126,13 +131,13 @@ Meteor.methods({
 
     } catch(error) {
 /*
-      console.log('Stripe customer create error:', error.type);
-      console.log('Stripe customer create error:', error.message);
+      console.log('stripe customer create error:', error.type);
+      console.log('stripe customer create error:', error.message);
 */
-      throw new Meteor.Error('stripe-account-creation-failed', 'Sorry Stripe failed to create a user account. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-account-creation-failed', 'Sorry stripe failed to create a user account. This was because: ' + error.message);
     }
 
-//     console.log('New Stripe customer', stripeCustomer);
+//     console.log('New stripe customer', stripeCustomer);
 
     return stripeCustomer;
 
@@ -146,9 +151,9 @@ Meteor.methods({
       var stripeCustomer = syncCustomerRetrieve(stripeCustomerId);
 
     } catch(error) {
-      console.log('Stripe customer check error:', error.type);
-      console.log('Stripe customer check error:', error.message);
-      throw new Meteor.Error('stripe-account-check-failed', 'Sorry Stripe failed to check the user account. This was because: ' + error.message);
+      console.log('stripe customer check error:', error.type);
+      console.log('stripe customer check error:', error.message);
+      throw new Meteor.Error('stripe-account-check-failed', 'Sorry stripe failed to check the user account. This was because: ' + error.message);
     }
 
     return stripeCustomer;
@@ -162,10 +167,10 @@ Meteor.methods({
       var stripeDeleteCustomer = syncCustomersDelete(stripeCustomerId);
     } catch(error) {
 /*
-      console.log('Stripe customer delete error:', error.type);
-      console.log('Stripe customer delete error:', error.message);
+      console.log('stripe customer delete error:', error.type);
+      console.log('stripe customer delete error:', error.message);
 */
-      throw new Meteor.Error('stripe-customer-delete-failed', 'Sorry Stripe failed to delete the customer. This was because: ' + error.message);
+      throw new Meteor.Error('stripe-customer-delete-failed', 'Sorry stripe failed to delete the customer. This was because: ' + error.message);
     }
 
 //     console.log('Deleted customer:', stripeDeleteCustomer);
@@ -173,5 +178,30 @@ Meteor.methods({
     return stripeDeleteCustomer;
 
   },
+
+  stripeConstructEvent: function(body, headerSignature, secret) {
+    console.log('Constructing event');
+
+    try {
+      var event = syncConstructEvent(body, headerSignature, secret);
+      console.log('method return event', event)
+      return event;
+    } catch(error) {
+      console.warn('syncConstructEvent error', error);
+      throw new Meteor.Error('method-stripe-construct-event-failed', 'Sorry Stripe failed to construct the event.');
+    }
+
+  },
+
+  stripeRetriveEvent: function(eventId) {
+    check(eventId, String);
+
+    try {
+      return syncRetriveEvent(eventId);
+    } catch(error) {
+      console.warn('syncRetriveEvent error', error);
+      throw new Meteor.Error('method-stripe-retrive-event-failed', 'Sorry Stripe failed to retrive the event.');
+    }
+  }
 
 });
