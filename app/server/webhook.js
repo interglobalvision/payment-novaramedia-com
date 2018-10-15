@@ -1,5 +1,7 @@
 import bodyParser from 'body-parser';
 
+import { sendErrorEmail } from '../imports/email/errorEmails.js';
+
 Picker.middleware(bodyParser.json());
 
 Picker.route('/api/stripewebhook', function(params, request, response, next) {
@@ -42,7 +44,9 @@ Picker.route('/api/stripewebhook', function(params, request, response, next) {
 // Webhook event handler functions. These probably should go somewhere more sensible?
 
 handleWebhookInvoicePaymentFailed = (event) => {
-//   console.log('Invoice payment failed event:', event);
+  console.log('***Invoice payment failed***');
+
+//   console.log('event:', event);
 
   const data = event.data.object;
   // we need this to find our local data
@@ -50,39 +54,55 @@ handleWebhookInvoicePaymentFailed = (event) => {
   // we need this to check the progress of the failure
   const nextPaymentAttempt = data.next_payment_attempt;
 
-//   console.log('stripeSubscriptionId', stripeSubscriptionId);
-
   // get local subscription record
   const localSubscription = Subscriptions.findOne({
     stripeId: stripeSubscriptionId,
   });
 
   if (!localSubscription) {
-    return console.log('no local subscription found');
-    // handle error here:
-    // if there is a Stripe subscription with no associated local subscription this is an error level that requires human investigation. there is no system for this yet but likely this involves an email to the super admin user and some logged details.
+    // handle error here: if there is a Stripe subscription with no associated local subscription this is an error level that requires human investigation.
+    sendErrorEmail('No local subscription found when handling an invoice payment failure webhook.', {eventData: data, stripeSubscriptionId: stripeSubscriptionId});
+    return console.log('No local subscription found');
   }
-
-//   console.log('localSubscription', localSubscription);
 
   // get user associated with subscription record
   const localUser = Meteor.users.findOne(localSubscription.user);
 
   if (!localUser) {
-    return console.log('no local user found');
-    // handle error
-    // if there is a Stripe subscription with no associated local user this is an error level that requires human investigation. there is no system for this yet but likely this involves an email to the super admin user and some logged details.
+    // handle error here: if there is a Stripe subscription with no associated local user this is an error level that requires human investigation.
+    sendErrorEmail('No local user account found when handling an invoice payment failure webhook.', {eventData: data, localSubscription: localSubscription});
+    return console.log('No local user found');
   }
-
-//   console.log('localUser', localUser);
 
   if (nextPaymentAttempt === null) {
     // null next attempt means that was the last attempt. (at this moment do we delete the subscription? or do we only delete the sub from that webhook event?)
+
+    // action: delete subscription from stripe and also locally.
+    const cancelledStripeSubscription = Meteor.call('stripeCancelSubscription', localUser.profile.stripeCustomer, stripeSubscriptionId);
+
+    console.log('cancelledStripeSubscription', cancelledStripeSubscription);
+
+    if (!cancelledStripeSubscription) {
+      // handle error: no sub was cancelled for some reason.
+      sendErrorEmail('Stripe subscription accociated with a final attempted invoice failed to be deleted. This happened while handling an invoice payment failure webhook', {eventData: data, localSubscription: localSubscription, stripeSubscriptionId: stripeSubscriptionId});
+    }
+
+    const cancelledLocalSubscription = Subscriptions.remove(localSubscription._id);
+
+    console.log('cancelledLocalSubscription', cancelledLocalSubscription);
+
+    if (!cancelledStripeSubscription) {
+      // handle error: no sub was cancelled for some reason.
+      sendErrorEmail('Local subscription subscription accociated with a final attempted invoice failed to be deleted. The Stripe partner to this subscription has already been deleted. This happened while handling an invoice payment failure webhook', {eventData: data, localSubscription: localSubscription, stripeSubscriptionId: stripeSubscriptionId});
+    }
+
     // action: email user to inform them their account has expired with instructions on how to create a new subscription
     console.log('email user to inform them their subscription has expired with instructions on how to create a new subscription');
+
   } else {
     const nextPaymentAttemptMoment = moment(nextPaymentAttempt, 'X');
     // next payment attempt is in the future
+    console.log('nextPaymentAttempt', nextPaymentAttempt);
     console.log('next payment attempt is', nextPaymentAttemptMoment.fromNow());
     // action: email user to inform them of failed charge and tell them to sort out the issue
     console.log('email user to inform them of failed charge and tell them to sort out the issue');
