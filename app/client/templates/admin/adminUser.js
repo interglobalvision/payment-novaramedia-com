@@ -51,6 +51,20 @@ Template.adminUser.events({
 
   },
 
+  'click .action-reanchor-subscription': function() {
+
+    Meteor.call('reanchorSubscription', this.user.profile.stripeCustomer, this.subscription.stripeId, function(err, response) {
+
+      if (err) {
+        console.log(err);
+        Alerta.error(err.reason);
+      } else {
+        Alerta.message('Subscription Re-anchored');
+      }
+
+    });
+  },
+
   'click .action-delete': function() {
 
     if (window.confirm('Are you sure you want to delete this user?')) {

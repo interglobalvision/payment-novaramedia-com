@@ -2,9 +2,12 @@ import stripePackage from 'stripe';
 const stripe = stripePackage(Meteor.settings.stripe.secret);
 stripe.setApiVersion('2018-07-27');
 
+var syncTokenCreate = Meteor.wrapAsync(stripe.tokens.create, stripe.tokens);
+
 var syncChargesCreate = Meteor.wrapAsync(stripe.charges.create, stripe.charges);
 
 var syncCustomersCreate = Meteor.wrapAsync(stripe.customers.create, stripe.customers);
+var syncCustomersUpdate = Meteor.wrapAsync(stripe.customers.update, stripe.customers);
 var syncCustomersDelete = Meteor.wrapAsync(stripe.customers.del, stripe.customers);
 
 var syncSubscriptionsCreate = Meteor.wrapAsync(stripe.customers.createSubscription, stripe.customers);
@@ -18,6 +21,26 @@ var syncConstructEvent = Meteor.wrapAsync(stripe.webhooks.constructEvent, stripe
 var syncRetriveEvent = Meteor.wrapAsync(stripe.events.retrieve, stripe.events);
 
 Meteor.methods({
+
+  stripeCreateTestToken: function(cardNumber) {
+    let token;
+
+    try {
+      token = syncTokenCreate({
+        card: {
+          'number': cardNumber,
+          'exp_month': 12,
+          'exp_year': 2020,
+          'cvc': '123'
+        }
+      });
+
+    } catch(error) {
+      throw new Meteor.Error('stripe-token-creation-failed', 'Sorry stripe failed to create the token. This was because: ' + error.message);
+    }
+
+    return token;
+  },
 
   stripeCreateCharge: function(source, amount) {
     check(source, String);
@@ -77,6 +100,25 @@ Meteor.methods({
 
   },
 
+  stripeCreateImminentSubscription: function(stripeCustomerId, amount) {
+    check(stripeCustomerId, String);
+    check(amount, Number);
+
+    try {
+
+      var stripeSubscription = syncSubscriptionsCreate(stripeCustomerId ,{
+        plan: 'novarasub',
+        quantity: amount,
+        trial_end: moment().add(30, 'seconds').unix()
+      });
+
+    } catch(error) {
+      throw new Meteor.Error('stripe-subscription-creation-failed', 'Sorry stripe failed to create the subscription. This was because: ' + error.message);
+    }
+
+    return stripeSubscription;
+  },
+
   stripeUpdateSubscription: function(stripeCustomerId, stripeSubscriptionId, amount) {
     check(stripeCustomerId, String);
     check(stripeSubscriptionId, String);
@@ -91,6 +133,22 @@ Meteor.methods({
       console.log('stripe subscription update error:', error.type);
       console.log('stripe subscription update error:', error.message);
 */
+      throw new Meteor.Error('stripe-subscription-update-failed', 'Sorry stripe failed to edit the subscription. This was because: ' + error.message);
+    }
+
+    return stripeUpdateSubscription;
+
+  },
+
+  stripeUpdateSubscriptionBillingAnchor: function(stripeCustomerId, stripeSubscriptionId) {
+    check(stripeCustomerId, String);
+    check(stripeSubscriptionId, String);
+
+    try {
+      var stripeUpdateSubscription = syncSubscriptionsUpdate(stripeCustomerId ,stripeSubscriptionId, {
+        billing_cycle_anchor: 'now',
+      });
+    } catch(error) {
       throw new Meteor.Error('stripe-subscription-update-failed', 'Sorry stripe failed to edit the subscription. This was because: ' + error.message);
     }
 
@@ -158,6 +216,22 @@ Meteor.methods({
 
     return stripeCustomer;
 
+  },
+
+  stripeUpdateCustomerSource: function(stripeCustomerId, source) {
+    check(stripeCustomerId, String);
+    check(source, String);
+
+    try {
+      var stripeCustomer = syncCustomersUpdate(stripeCustomerId, {
+        source: source
+      });
+
+    } catch(error) {
+      throw new Meteor.Error('stripe-account-check-failed', 'Sorry stripe failed to update the user account. This was because: ' + error.message);
+    }
+
+    return stripeCustomer;
   },
 
   stripeDeleteCustomer: function(stripeCustomerId) {

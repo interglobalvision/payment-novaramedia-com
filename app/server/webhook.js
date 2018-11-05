@@ -1,5 +1,7 @@
 import bodyParser from 'body-parser';
 
+import { invoicePaymentFailed } from '../imports/webhookEvents/invoicePaymentFailed.js';
+
 Picker.middleware(bodyParser.json());
 
 Picker.route('/api/stripewebhook', function(params, request, response, next) {
@@ -25,8 +27,8 @@ Picker.route('/api/stripewebhook', function(params, request, response, next) {
 
     // Handle different webhook event types here
     switch(event.type) {
-      case 'customer.subscription.created':
-        console.log('Good news: a new subscription worth £' + event.data.object.quantity);
+      case 'invoice.payment_failed':
+        invoicePaymentFailed(event);
         break;
     }
 
