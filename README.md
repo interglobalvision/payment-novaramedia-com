@@ -54,6 +54,7 @@ In production using the last version of [mupx](https://www.npmjs.com/package/mup
 
 #### v1.1
 
+- Impliment Sentry.io (or similar) error reporting
 - Sync subscribers to Mailchimp via API
 - HTML formatted emails
 
