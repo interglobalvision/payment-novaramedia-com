@@ -6,25 +6,38 @@ function saveFundraiserAnalyticData() {
     return;
   }
 
+  // Create moment objects for start and end
   var now = moment();
   var start = moment(Meteor.settings.fundraiser.startDate);
   var end = moment(Meteor.settings.fundraiser.endDate);
 
+  // Get all subs in timescale
   var subscriptions = Subscriptions.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
   var subscriptionsTotal = 0;
 
+  // Total all subs
   subscriptions.forEach(function (post) {
-    subscriptionsTotal += post.amount;
+    subscriptionsTotal += parseInt(post.amount);
   });
 
-  var donations = Donations.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
-  var donationsTotal = 0;
+  // Add any external donations
+  var total = subscriptionsTotal + Meteor.settings.fundraiser.externalDonationsAmount;
 
-  donations.forEach(function (post) {
-    donationsTotal += post.amount;
-  });
+  // If not a subsraiser then get all donations in timescale too
+  if (Meteor.settings.fundraiser.subsraiser !== true) {
 
-  var total = subscriptionsTotal + donationsTotal + Meteor.settings.fundraiser.externalDonationsAmount;
+    var donations = Donations.find({createdAt: {$gte: start.toDate(), $lt: end.toDate(),},});
+    var donationsTotal = 0;
+
+    // Total the donations
+    donations.forEach(function (post) {
+      donationsTotal += parseInt(post.amount);
+    });
+
+    // And add to the overall total
+    total += donationsTotal;
+  }
+
   var percent = total / Meteor.settings.fundraiser.goalAmount;
 
   var data = {

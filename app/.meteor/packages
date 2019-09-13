@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-insecure
 iron:router
 accounts-base
 accounts-password
@@ -33,3 +32,4 @@ standard-minifier-js
 percolate:synced-cron
 ecmascript
 meteorhacks:picker
+reactive-var

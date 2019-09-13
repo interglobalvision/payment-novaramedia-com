@@ -38,7 +38,7 @@ Router.map(function() {
     onBeforeAction: function () {
 
       if (!Meteor.userId()) {
-        this.redirect('oneoff');
+        this.redirect('subscription');
       } else {
         this.redirect('profile');
       }
