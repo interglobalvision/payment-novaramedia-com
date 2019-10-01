@@ -1,3 +1,5 @@
+import { sendErrorEmail } from '../../imports/email/errorEmails.js';
+
 Meteor.methods({
 
   checkCustomer: function(stripeCustomerId) {
@@ -149,7 +151,20 @@ Meteor.methods({
     Accounts.sendEnrollmentEmail(newUser);
 
     return true;
-  }
+  },
+
+  sendDummyErrorEmail: function() {
+
+    // check if admin
+    check(this.userId, String);
+
+    if (!Roles.userIsInRole(this.userId, 'admin')) {
+      throw new Meteor.Error('not-allowed', 'Sorry but you are not admin.');
+    }
+
+    sendErrorEmail('Local subscription subscription accociated with a final attempted invoice failed to be deleted. The Stripe partner to this subscription has already been deleted. This happened while handling an invoice payment failure webhook', {eventData: {something: 'something', otherwise: 'thisss'}, localSubscription: 'rr2dafw2fwa', stripeSubscriptionId: 'f22tgzqgs'});
+
+  },
 
 /*
   nuclear: function() {
