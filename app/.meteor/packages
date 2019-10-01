@@ -32,3 +32,4 @@ standard-minifier-js
 percolate:synced-cron
 ecmascript
 meteorhacks:picker
+reactive-var

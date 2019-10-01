@@ -4,6 +4,12 @@ Process one-off and recurring donations to Novara Media using Stripe.
 
 ---
 
+### Settings
+
+`settings.json` is required to run. It needs Stripe API tokens. It also needs copy for post subscription views and emails. It also can take data for running time limited fundraisers (both of pure subscriptions to goal and one off donations to goal). When running it exposes a simple json endpoint. The date format for the settings is anything that moment.js will read but recommended and tested with ISO 8601 timestamps.
+
+---
+
 ### Dev
 
 Has optional gulpfile in project root than can lint (needs rewriting itself)
@@ -48,6 +54,7 @@ In production using the last version of [mupx](https://www.npmjs.com/package/mup
 
 #### v1.1
 
+- Impliment Sentry.io (or similar) error reporting
 - Sync subscribers to Mailchimp via API
 - HTML formatted emails
 
